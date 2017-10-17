@@ -61,3 +61,19 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grazie Menu"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:background="@color/titlecolor"/>
+
+
+    </LinearLayout>
+</LinearLayout>
