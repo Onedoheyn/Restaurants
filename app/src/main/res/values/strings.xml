@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Restaurants</string>
+    <string name="grazie">Grazie</string>
+    <string name="title">위치 : 한성대학교 지선관 앞 연구동 \n영업시간 : 09:00 - 21:30 \n전화번호 :02-333-3333\n
+       \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t전화걸기
+    </string>
 </resources>
