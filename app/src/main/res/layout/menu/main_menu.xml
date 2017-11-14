@@ -7,6 +7,4 @@
         android:id="@+id/action_mainactivity"
         android:title="RestaurantDetail"/>
 
-
-
 </menu>
