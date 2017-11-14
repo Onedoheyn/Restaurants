@@ -3,6 +3,9 @@ package com.hansung.android.restaurants;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,21 +14,49 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-   // ArrayList<Restaurant> al = new ArrayList<Restaurant>();
+    // ArrayList<Restaurant> al = new ArrayList<Restaurant>();
+    ImageButton Camera = null;
+    ImageView iv = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
+
+        setup();
+
     }
-}
+
+    private void setup() {
+        Camera = (ImageButton) findViewById(R.id.Camera);
+        Camera.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivity(intent);
+            }
+        });
+
+
+
+    }}
+
+
+
+
 //
 //        Button btn = (Button)findViewById(R.id.buttonCallActivity);
 //        btn.setOnClickListener(new View.OnClickListener() {
@@ -144,3 +175,5 @@ public class MainActivity extends AppCompatActivity {
 //    public Restaurant() {}
 //}
 //
+
+
