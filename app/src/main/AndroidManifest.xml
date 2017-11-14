@@ -29,9 +29,16 @@
         <activity android:name=".RestaurantDetail"
             android:parentActivityName=".MainActivity" />
 
-        Restaurant
+        <activity android:name=".InsertActivity"
+            android:label="그냥"/>
+        </application>
 
 
-    </application>
+
+
+
+
+
+
 
 </manifest>

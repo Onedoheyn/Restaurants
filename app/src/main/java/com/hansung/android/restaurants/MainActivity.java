@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        Button btn = (Button) findViewById(R.id.Insert);
+
+        btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent new_intent = new Intent(getApplicationContext(), InsertActivity.class);
+                startActivity(new_intent);
+            }
+        });
+
 
     }
     protected void onActivityResult(int requestCode,
