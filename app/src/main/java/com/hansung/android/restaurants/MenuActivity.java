@@ -43,7 +43,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-public class InsertActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private ImageView imgview;
@@ -51,7 +51,7 @@ public class InsertActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.insert);
+        setContentView(R.layout.insertmenu);
         imgview = (ImageView) findViewById(R.id.Camera);
         ImageButton buttonCamera = (ImageButton) findViewById(R.id.Camera);
 

@@ -31,6 +31,8 @@
 
         <activity android:name=".MainActivity"
             android:label="그냥"/>
+        <activity android:name=".MenuActivity"
+            android:label="메뉴"/>
         </application>
 
 
