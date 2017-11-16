@@ -26,7 +26,7 @@
                 <data android:scheme="tel" />
             </intent-filter>
         </activity>
-        <activity android:name=".RestaurantDetail"
+        <activity android:name=".InsertResultActivity"
             android:parentActivityName=".InsertActivity" />
 
         <activity android:name=".MainActivity"
