@@ -1,11 +1,16 @@
 package com.hansung.android.restaurants;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Adapter;
@@ -55,6 +60,10 @@ public class InsertActivity extends AppCompatActivity {
     private ImageView imgview;
     final static String TAG="SQLITEDBTEST";
 
+    final int REQUEST_CODE_READ_CONTACTS = 1;
+
+
+
 
     EditText mName;
     EditText mAdd;
@@ -82,9 +91,10 @@ public class InsertActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent new_intent = new Intent(getApplicationContext(), MainActivity.class);
-                insertRecord();
+
                // viewAllToListView();
                 startActivity(new_intent);
+                insertRecord();
             }
         });
         mName = (EditText)findViewById(R.id.editText1);
@@ -92,6 +102,13 @@ public class InsertActivity extends AppCompatActivity {
         mPhone = (EditText)findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);
+
+        if (ContextCompat.checkSelfPermission(InsertActivity.this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) { // 권한이 없으므로, 사용자에게 권한 요청 다이얼로그 표시
+            ActivityCompat.requestPermissions(InsertActivity.this,
+                    new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_READ_CONTACTS);
+        } else // 권한 있음! 해당 데이터나 장치에 접근!
+            getContacts();
 
 
 
@@ -146,13 +163,67 @@ public class InsertActivity extends AppCompatActivity {
 
 
 
+//데이터 베이스 코드
+
+    private void getContacts() {
+        String [] projection = {
+                ContactsContract.CommonDataKinds.Phone._ID,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER
+        };
+
+        // 연락처 전화번호 타입에 따른 행 선택을 위한 선택 절
+        String selectionClause = ContactsContract.CommonDataKinds.Phone.TYPE + " = ? ";
+
+        // 전화번호 타입이 'MOBILE'인 것을 지정
+        String[] selectionArgs = {""+ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE};
+
+        Cursor c = getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,  // 조회할 데이터 URI
+                projection,         // 조회할 컬럼 들
+                selectionClause,    // 선택될 행들에 대한선택될 행들에 대한 조건절
+                selectionArgs,      // 조건절에 필요한 파라미터
+                null);              // 정렬 안
+
+        String[] contactsColumns = { // 쿼리결과인 Cursor 객체로부터 출력할 열들
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER
+        };
+
+        int[] contactsListItems = { // 열의 값을 출력할 뷰 ID (layout/item.xml 내)
+
+                R.id.name,
+                R.id.phone,
+                0
+        };
+
+        android.support.v4.widget.SimpleCursorAdapter adapter = new android.support.v4.widget.SimpleCursorAdapter(this,
+                R.layout.item2,
+                c,
+                contactsColumns,
+                contactsListItems,
+                0);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_READ_CONTACTS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getContacts();
+            } else {
+                Toast.makeText(getApplicationContext(), "READ_CONTACTS 접근 권한이 필요합니다", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     private void insertRecord() {
         EditText name = (EditText)findViewById(R.id.editText1);
-        EditText add = (EditText)findViewById(R.id.editText2);
-        EditText phone = (EditText)findViewById(R.id.editText3);
+        EditText phone = (EditText)findViewById(R.id.editText2);
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),name.getText().toString(),phone.getText().toString());
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),phone.getText().toString());
         if (nOfRows >0)
             Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
         else

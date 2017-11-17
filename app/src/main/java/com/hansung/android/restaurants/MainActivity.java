@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 /**
  * Created by LeeChanHee on 2017-11-14.
@@ -20,7 +21,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
-    final static String TAG="SQLITEDBTEST";
+
 
     EditText mName;
     EditText mAdd;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
+
+        mDbHelper = new DBHelper(this);
+        viewAllToTextView();
 
     }
 
@@ -51,36 +55,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    private void viewAllToTextView() {
+        TextView result = (TextView)findViewById(R.id.text1);
 
+        Cursor cursor = mDbHelper.getAllUsersBySQL();
 
-    private void viewAllToListView() {
-
-        Cursor cursor = mDbHelper.getAllUsersByMethod();
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
-                R.layout.item, cursor, new String[]{
-
-                UserContract.Users.KEY_NAME,
-                UserContract.Users.KEY_ADD,
-                UserContract.Users.KEY_PHONE},
-                new int[]{R.id.name, R.id.add, R.id.phone}, 0);
-
-        ListView lv = (ListView) findViewById(R.id.listview);
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Adapter adapter = adapterView.getAdapter();
-
-
-                mName.setText(((Cursor) adapter.getItem(i)).getString(0));
-                mAdd.setText(((Cursor) adapter.getItem(i)).getString(1));
-                mPhone.setText(((Cursor) adapter.getItem(i)).getString(2));
-            }
-        });
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            buffer.append(cursor.getInt(0)+" \t");
+            buffer.append(cursor.getString(1)+" \t");
+            buffer.append(cursor.getString(2)+"\n");
+        }
+        result.setText(buffer);
     }
+
+
+
 }
 
 //
