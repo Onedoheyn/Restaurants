@@ -33,7 +33,17 @@
             android:label="그냥"/>
         <activity android:name=".MenuActivity"
             android:label="메뉴"/>
-        </application>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.hansung.android.restaurants"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
 
 
 

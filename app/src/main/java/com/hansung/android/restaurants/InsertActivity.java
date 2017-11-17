@@ -33,7 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Intent;
 
@@ -59,24 +61,14 @@ public class InsertActivity extends AppCompatActivity {
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString());
-
-                try {
-                    intent.putExtra("return-data", true);
-                    startActivityForResult(intent, PICK_FROM_CAMERA);
-                } catch (ActivityNotFoundException e) {
-
-                }
+                dispatchTakePictureIntent();
             }
         });
 
         Button btn = (Button) findViewById(R.id.Insert);
 
-        btn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Intent new_intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(new_intent);
             }
@@ -84,20 +76,49 @@ public class InsertActivity extends AppCompatActivity {
 
 
     }
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data) {
 
-        if (requestCode == PICK_FROM_CAMERA) {
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                imgview.setImageBitmap(photo);
-            }
+    String mPhotoFileName;
+    File mPhotoFile;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private String currentDateFormat() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+        String currentTimeStamp = dateFormat.format(new Date());
+        return currentTimeStamp;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            //1. 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
+            mPhotoFileName = "IMG" + currentDateFormat() + ".jpg";
+            mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
+
+            if (mPhotoFile != null) {
+                //2. 생성된 파일 객체에 대한 Uri 객체를 얻기
+                Uri imageUri = FileProvider.getUriForFile(this, "com.hansung.android.restaurants", mPhotoFile);
+                //authority에 패키지이름 고쳐주기
+                //3. Uri 객체를 Extras를 통해 카메라 앱으로 전달
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            } else
+                Toast.makeText(getApplicationContext(), "file null", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if (mPhotoFileName != null) {
+                mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
 
+                ImageButton ImageView = (ImageButton) findViewById(R.id.Camera);
+                ImageView.setImageURI(Uri.fromFile(mPhotoFile));
+                //mAdapter.addItem(new MediaItem(MediaItem.SDCARD, mPhotoFileName, Uri.fromFile(mPhotoFile), MediaItem.IMAGE));
+            }
+
+
+        }
+    }
 }
-//출처: http://mainia.tistory.com/1631 [녹두장군 - 상상을 현실로]
