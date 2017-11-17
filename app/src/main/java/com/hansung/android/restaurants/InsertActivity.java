@@ -2,12 +2,15 @@ package com.hansung.android.restaurants;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.content.ActivityNotFoundException;
@@ -29,6 +32,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +53,17 @@ public class InsertActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private ImageView imgview;
+    final static String TAG="SQLITEDBTEST";
 
+
+    EditText mName;
+    EditText mAdd;
+    EditText mPhone;
+
+    private DBHelper mDbHelper;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
         imgview = (ImageView) findViewById(R.id.Camera);
@@ -70,9 +82,18 @@ public class InsertActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent new_intent = new Intent(getApplicationContext(), MainActivity.class);
+                insertRecord();
+               // viewAllToListView();
                 startActivity(new_intent);
             }
         });
+        mName = (EditText)findViewById(R.id.editText1);
+        mAdd = (EditText)findViewById(R.id.editText2);
+        mPhone = (EditText)findViewById(R.id.editText3);
+
+        mDbHelper = new DBHelper(this);
+
+
 
 
     }
@@ -121,4 +142,22 @@ public class InsertActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
+
+    private void insertRecord() {
+        EditText name = (EditText)findViewById(R.id.editText1);
+        EditText add = (EditText)findViewById(R.id.editText2);
+        EditText phone = (EditText)findViewById(R.id.editText3);
+
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),name.getText().toString(),phone.getText().toString());
+        if (nOfRows >0)
+            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

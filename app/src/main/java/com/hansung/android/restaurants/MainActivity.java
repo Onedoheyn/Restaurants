@@ -1,17 +1,31 @@
 package com.hansung.android.restaurants;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 /**
  * Created by LeeChanHee on 2017-11-14.
  */
 
 public class MainActivity extends AppCompatActivity {
+    private DBHelper mDbHelper;
+    final static String TAG="SQLITEDBTEST";
+
+    EditText mName;
+    EditText mAdd;
+    EditText mPhone;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
@@ -37,9 +51,37 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    private void viewAllToListView() {
+
+        Cursor cursor = mDbHelper.getAllUsersByMethod();
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
+                R.layout.item, cursor, new String[]{
+
+                UserContract.Users.KEY_NAME,
+                UserContract.Users.KEY_ADD,
+                UserContract.Users.KEY_PHONE},
+                new int[]{R.id.name, R.id.add, R.id.phone}, 0);
+
+        ListView lv = (ListView) findViewById(R.id.listview);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Adapter adapter = adapterView.getAdapter();
+
+
+                mName.setText(((Cursor) adapter.getItem(i)).getString(0));
+                mAdd.setText(((Cursor) adapter.getItem(i)).getString(1));
+                mPhone.setText(((Cursor) adapter.getItem(i)).getString(2));
+            }
+        });
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    }
 }
-
-
 
 //
 //        Button btn = (Button)findViewById(R.id.buttonCallActivity);
