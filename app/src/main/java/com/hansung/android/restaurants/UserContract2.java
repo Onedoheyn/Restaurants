@@ -4,7 +4,7 @@ package com.hansung.android.restaurants;
 import android.provider.BaseColumns;
 
 public final class UserContract2 {
-    public static final String DB_NAME="user.db";
+    public static final String DB_NAME="user2.db";
     public static final int DATABASE_VERSION = 1;
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";

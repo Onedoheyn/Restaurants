@@ -9,16 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBHelper2 extends SQLiteOpenHelper {
-    final static String TAG="SQLiteDBTest";
+    final static String TAG="SQLiteDBTest2";
 
     public DBHelper2(Context context) {
-        super(context, UserContract.DB_NAME, null, UserContract.DATABASE_VERSION);
+        super(context, UserContract2.DB_NAME, null, UserContract2.DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG,getClass().getName()+".onCreate()");
-        db.execSQL(UserContract.Users.CREATE_TABLE);
+        db.execSQL(UserContract2.Users2.CREATE_TABLE);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllUsersBySQL2() {
+    public Cursor getAllUsersBySQL() {
         String sql = "Select * FROM " + UserContract.Users.TABLE_NAME;
         return getReadableDatabase().rawQuery(sql,null);
     }
@@ -79,12 +79,12 @@ public class DBHelper2 extends SQLiteOpenHelper {
         }
     }
 
-    public long insertUserByMethod2(String name, String address, String phone) {
+    public long insertUserByMethod2(String name2, String address2, String phone2) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(UserContract.Users.KEY_NAME, name);
-        values.put(UserContract.Users.KEY_ADDRESS, address);
-        values.put(UserContract.Users.KEY_PHONE,phone);
+        values.put(UserContract.Users.KEY_NAME, name2);
+        values.put(UserContract.Users.KEY_ADDRESS, address2);
+        values.put(UserContract.Users.KEY_PHONE,phone2);
 
         return db.insert(UserContract.Users.TABLE_NAME,null,values);
     }

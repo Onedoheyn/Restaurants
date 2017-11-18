@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     private void viewAllToTextView2() {
         TextView result = (TextView)findViewById(R.id.text2);
 
-        Cursor cursor2 = mDbHelper2.getAllUsersBySQL2();
+        Cursor cursor2 = mDbHelper2.getAllUsersBySQL();
 
         StringBuffer buffer2 = new StringBuffer();
         while (cursor2.moveToNext()) {

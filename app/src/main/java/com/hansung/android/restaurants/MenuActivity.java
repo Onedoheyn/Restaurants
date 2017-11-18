@@ -56,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private ImageView imgview;
-    final static String TAG="SQLITEDBTEST";
+    final static String TAG="SQLITEDBTEST2";
 
     final int REQUEST_CODE_READ_CONTACTS = 1;
 
