@@ -2,6 +2,7 @@ package com.hansung.android.restaurants;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -38,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
+
+        Button btn = (Button)findViewById(R.id.buttonCallActivity);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-000-0000"));
+                startActivity(implicit_intent);
+            }
+        });
 
 
     }
@@ -68,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
-            buffer.append(cursor.getInt(1)+" \t");
-            buffer.append(cursor.getInt(2)+" \t");
-            buffer.append(cursor.getInt(3)+" \n");
+            buffer.append(cursor.getString(1)+" \n");
+            buffer.append(cursor.getString(2)+" \n");
+            buffer.append(cursor.getString(3)+" \n");
 
         }
         result.setText(buffer);
@@ -79,19 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
 }
 
-//
-//        Button btn = (Button)findViewById(R.id.buttonCallActivity);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-000-0000"));
-//                startActivity(implicit_intent);
-//            }
-//        });
-//
-//
+
+
+
 // al.add(new Restaurant("아메리카노",R.drawable.img1,"2100원","평점4.5"));
 //        al.add(new Restaurant("카라멜 마끼야또",R.drawable.img2,"3200원","평점4.8"));
 //        al.add(new Restaurant("Real 에이드",R.drawable.img3,"3000원","평점4.6"));
