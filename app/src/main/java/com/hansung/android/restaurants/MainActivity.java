@@ -103,27 +103,35 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = mDbHelper.getAllUsersBySQL();
 
         StringBuffer buffer = new StringBuffer();
-        while (cursor.moveToNext()) {
+        if (cursor.moveToLast()) {
             buffer.append(cursor.getString(1)+" \n");
             buffer.append(cursor.getString(2)+" \n");
             buffer.append(cursor.getString(3)+" \n");
 
+
+
         }
+
+
         result.setText(buffer);
+        buffer.setLength(0);
+
     }
+
     private void viewAllToTextView2() {
         TextView result = (TextView)findViewById(R.id.text2);
 
         Cursor cursor2 = mDbHelper2.getAllUsersBySQL();
 
         StringBuffer buffer2 = new StringBuffer();
-        while (cursor2.moveToNext()) {
+        if (cursor2.moveToLast()) {
             buffer2.append(cursor2.getString(1)+" \n");
             buffer2.append(cursor2.getString(2)+" \n");
             buffer2.append(cursor2.getString(3)+" \n");
 
         }
         result.setText(buffer2);
+        buffer2.setLength(0);
     }
 
 //사진
