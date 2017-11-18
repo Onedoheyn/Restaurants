@@ -66,7 +66,7 @@ public class InsertActivity extends AppCompatActivity {
 
 
     EditText mName;
-    EditText mAdd;
+    EditText mAddress;
     EditText mPhone;
 
     private DBHelper mDbHelper;
@@ -98,7 +98,7 @@ public class InsertActivity extends AppCompatActivity {
             }
         });
         mName = (EditText)findViewById(R.id.editText1);
-        mAdd = (EditText)findViewById(R.id.editText2);
+        mAddress = (EditText)findViewById(R.id.editText2);
         mPhone = (EditText)findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);
@@ -193,6 +193,7 @@ public class InsertActivity extends AppCompatActivity {
         int[] contactsListItems = { // 열의 값을 출력할 뷰 ID (layout/item.xml 내)
 
                 R.id.name,
+                R.id.address,
                 R.id.phone,
                 0
         };
@@ -221,9 +222,10 @@ public class InsertActivity extends AppCompatActivity {
 
     private void insertRecord() {
         EditText name = (EditText)findViewById(R.id.editText1);
-        EditText phone = (EditText)findViewById(R.id.editText2);
+        EditText address = (EditText)findViewById(R.id.editText2);
+        EditText phone = (EditText)findViewById(R.id.editText3);
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),phone.getText().toString());
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString());
         if (nOfRows >0)
             Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
         else

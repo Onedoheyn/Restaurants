@@ -24,15 +24,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     EditText mName;
-    EditText mAdd;
+    EditText mAddress;
     EditText mPhone;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
 
+        mName = (EditText)findViewById(R.id.editText1);
+        mAddress = (EditText)findViewById(R.id.editText2);
+        mPhone = (EditText)findViewById(R.id.editText3);
+
+
         mDbHelper = new DBHelper(this);
-        viewAllToTextView();
+        viewAllToTextView1();
+
 
     }
 
@@ -55,19 +61,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    private void viewAllToTextView() {
+    private void viewAllToTextView1() {
         TextView result = (TextView)findViewById(R.id.text1);
 
         Cursor cursor = mDbHelper.getAllUsersBySQL();
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
-            buffer.append(cursor.getInt(0)+" \t");
-            buffer.append(cursor.getString(1)+" \t");
-            buffer.append(cursor.getString(2)+"\n");
+            buffer.append(cursor.getInt(1)+" \t");
+            buffer.append(cursor.getInt(2)+" \t");
+            buffer.append(cursor.getInt(3)+" \n");
+
         }
         result.setText(buffer);
     }
+
 
 
 
