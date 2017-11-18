@@ -2,8 +2,12 @@ package com.hansung.android.restaurants;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,9 +17,19 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by LeeChanHee on 2017-11-14.
@@ -23,11 +37,15 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
+    private DBHelper2 mDbHelper2;
 
 
     EditText mName;
     EditText mAddress;
     EditText mPhone;
+    EditText mName2;
+    EditText mAddress2;
+    EditText mPhone2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +55,16 @@ public class MainActivity extends AppCompatActivity {
         mAddress = (EditText)findViewById(R.id.editText2);
         mPhone = (EditText)findViewById(R.id.editText3);
 
+        mName2 = (EditText)findViewById(R.id.editText4);
+        mAddress2 = (EditText)findViewById(R.id.editText5);
+        mPhone2 = (EditText)findViewById(R.id.editText6);
+
 
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
+        mDbHelper2 = new DBHelper2(this);
+        viewAllToTextView2();
+
 
         Button btn = (Button)findViewById(R.id.buttonCallActivity);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +111,29 @@ public class MainActivity extends AppCompatActivity {
         }
         result.setText(buffer);
     }
+    private void viewAllToTextView2() {
+        TextView result = (TextView)findViewById(R.id.text2);
+
+        Cursor cursor2 = mDbHelper2.getAllUsersBySQL2();
+
+        StringBuffer buffer2 = new StringBuffer();
+        while (cursor2.moveToNext()) {
+            buffer2.append(cursor2.getString(1)+" \n");
+            buffer2.append(cursor2.getString(2)+" \n");
+            buffer2.append(cursor2.getString(3)+" \n");
+
+        }
+        result.setText(buffer2);
+    }
+
+//사진
+
+
+
+
+
+
+
 
 
 

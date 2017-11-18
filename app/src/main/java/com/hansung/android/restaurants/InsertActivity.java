@@ -75,7 +75,7 @@ public class InsertActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
-        imgview = (ImageView) findViewById(R.id.Camera);
+       // imgview = (ImageView) findViewById(R.id.Camera);
         ImageButton buttonCamera = (ImageButton) findViewById(R.id.Camera);
 
 
