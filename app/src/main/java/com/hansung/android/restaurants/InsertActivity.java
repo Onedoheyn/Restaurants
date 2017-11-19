@@ -68,8 +68,12 @@ public class InsertActivity extends AppCompatActivity {
     EditText mName;
     EditText mAddress;
     EditText mPhone;
+    EditText mmPhone;
+    EditText mmName;
+
 
     private DBHelper mDbHelper;
+    private DBHelper2 mDbHelper2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -159,6 +163,10 @@ public class InsertActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
 
 
 

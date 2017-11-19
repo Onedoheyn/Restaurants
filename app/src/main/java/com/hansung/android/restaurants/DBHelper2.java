@@ -48,7 +48,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
     }
 
     public Cursor getAllUsersBySQL() {
-        String sql = "Select * FROM " + UserContract.Users.TABLE_NAME;
+        String sql = "Select * FROM " + UserContract2.Users2.TABLE_NAME;
         return getReadableDatabase().rawQuery(sql,null);
     }
 
@@ -91,7 +91,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
 
     public Cursor getAllUsersByMethod2() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.query(UserContract.Users.TABLE_NAME,null,null,null,null,null,null);
+        return db.query(UserContract2.Users2.TABLE_NAME,null,null,null,null,null,null);
     }
 
     public long deleteUserByMethod2(String _id) {

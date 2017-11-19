@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     EditText mName2;
     EditText mAddress2;
     EditText mPhone2;
+    EditText mmPhone;
+    EditText mmName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
         mDbHelper2 = new DBHelper2(this);
-        viewAllToTextView2();
+        viewAllToListView();
 
 
         Button btn = (Button)findViewById(R.id.buttonCallActivity);
@@ -116,6 +118,32 @@ public class MainActivity extends AppCompatActivity {
         result.setText(buffer);
         buffer.setLength(0);
 
+    }
+
+    private void viewAllToListView() {
+
+        Cursor cursor = mDbHelper2.getAllUsersByMethod2();
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
+                R.layout.item, cursor, new String[]{
+                UserContract2.Users2.KEY_NAME,
+                UserContract2.Users2.KEY_PHONE},
+                new int[]{ R.id.name, R.id.phone}, 0);
+
+        ListView lv = (ListView)findViewById(R.id.listview);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Adapter adapter = adapterView.getAdapter();
+
+
+                mmName.setText(((Cursor)adapter.getItem(i)).getString(1));
+                mmPhone.setText(((Cursor)adapter.getItem(i)).getString(2));
+            }
+        });
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
     private void viewAllToTextView2() {
