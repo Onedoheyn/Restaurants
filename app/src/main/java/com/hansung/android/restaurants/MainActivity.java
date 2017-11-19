@@ -3,6 +3,7 @@ package com.hansung.android.restaurants;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper2 mDbHelper2;
 
 
+
+
     EditText mName;
     EditText mAddress;
     EditText mPhone;
@@ -49,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
     EditText mmPhone;
     EditText mmName;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
+
 
         mName = (EditText)findViewById(R.id.editText1);
         mAddress = (EditText)findViewById(R.id.editText2);
@@ -80,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -101,34 +110,39 @@ public class MainActivity extends AppCompatActivity {
     }
     private void viewAllToTextView1() {
         TextView result = (TextView)findViewById(R.id.text1);
-
         Cursor cursor = mDbHelper.getAllUsersBySQL();
-
         StringBuffer buffer = new StringBuffer();
         if (cursor.moveToLast()) {
             buffer.append(cursor.getString(1)+" \n");
             buffer.append(cursor.getString(2)+" \n");
             buffer.append(cursor.getString(3)+" \n");
-
-
+            buffer.append(cursor.getString(4)+" \n");
 
         }
-
-
         result.setText(buffer);
         buffer.setLength(0);
-
     }
+
+
+
+
+
+
+
+
+
+
+
 
     private void viewAllToListView() {
 
         Cursor cursor = mDbHelper2.getAllUsersByMethod2();
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
-                R.layout.item, cursor, new String[]{
+                R.layout.list_item, cursor, new String[]{
                 UserContract2.Users2.KEY_NAME,
-                UserContract2.Users2.KEY_PHONE},
-                new int[]{ R.id.name, R.id.phone}, 0);
+                UserContract2.Users2.KEY_ADDRESS},
+                new int[]{ R.id.name, R.id.address}, 0);
 
         ListView lv = (ListView)findViewById(R.id.listview);
         lv.setAdapter(adapter);
@@ -146,21 +160,8 @@ public class MainActivity extends AppCompatActivity {
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
-    private void viewAllToTextView2() {
-        TextView result = (TextView)findViewById(R.id.text2);
 
-        Cursor cursor2 = mDbHelper2.getAllUsersBySQL();
 
-        StringBuffer buffer2 = new StringBuffer();
-        if (cursor2.moveToLast()) {
-            buffer2.append(cursor2.getString(1)+" \n");
-            buffer2.append(cursor2.getString(2)+" \n");
-            buffer2.append(cursor2.getString(3)+" \n");
-
-        }
-        result.setText(buffer2);
-        buffer2.setLength(0);
-    }
 
 //사진
 

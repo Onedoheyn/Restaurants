@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.Image;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -79,13 +80,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long insertUserByMethod(String name, String address, String phone) {
+    public long insertUserByMethod( String name, String address, String phone, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserContract.Users.KEY_NAME, name);
         values.put(UserContract.Users.KEY_ADDRESS, address);
         values.put(UserContract.Users.KEY_PHONE,phone);
-
+        values.put(UserContract.Users.KEY_IMAGE,image);
         return db.insert(UserContract.Users.TABLE_NAME,null,values);
     }
 

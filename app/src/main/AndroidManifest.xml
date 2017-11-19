@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InsertActivity"
-            android:label="Main Activity">
+            android:label="InsertActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +32,9 @@
              />
 
         <activity android:name=".MainActivity"
-            android:label="그냥"/>
+            android:label="MainActivity"/>
         <activity android:name=".MenuActivity"
-            android:label="메뉴"/>
+            android:label="MenuActivity"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.hansung.android.restaurants"

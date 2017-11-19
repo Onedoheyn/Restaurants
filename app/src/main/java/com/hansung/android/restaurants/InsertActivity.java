@@ -233,7 +233,7 @@ public class InsertActivity extends AppCompatActivity {
         EditText address = (EditText)findViewById(R.id.editText2);
         EditText phone = (EditText)findViewById(R.id.editText3);
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString());
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString(),mPhotoFileName);
         if (nOfRows >0)
             Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
         else
