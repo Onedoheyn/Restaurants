@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Title2"
+
         android:textColor="#000"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -24,7 +24,6 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_alignParentRight="true"
         android:textColor="#000"
-        android:text="Artist"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 

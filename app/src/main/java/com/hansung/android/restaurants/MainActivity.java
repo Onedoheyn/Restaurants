@@ -40,13 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
     ImageView image;
-
-
-
-
-
-
-
+    static SimpleCursorAdapter adapter;
 
 
 
@@ -55,20 +49,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.insertresult);
 
         image = (ImageView) findViewById(R.id.CM);
-
         Uri imageUri = getIntent().getData();
         image.setImageURI(imageUri);
 
 
-
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
-
         mDbHelper2 = new DBHelper2(this);
-        viewAllToListView();
+        //viewAllToListView();
 
 
-        Button btn = (Button)findViewById(R.id.buttonCallActivity);
+        Button btn = (Button) findViewById(R.id.buttonCallActivity);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,12 +68,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Cursor cursor = mDbHelper2.getAllUsersByMethod2();
 
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
+                R.layout.row, cursor, new String[]{
+                UserContract2.Users2.KEY_NAME,
+                UserContract2.Users2.KEY_ADDRESS},
+                new int[]{R.id.textView1, R.id.textView2}, 0);
+
+        ListView lv = (ListView) findViewById(R.id.listview);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        ListActivity.class);
+
+                startActivity(intent);
+            }
+
+        });
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
-
-
-
-
 
 
     @Override
@@ -104,20 +115,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private void viewAllToTextView1() {
-        TextView result = (TextView)findViewById(R.id.text1);
+        TextView result = (TextView) findViewById(R.id.text1);
         Cursor cursor = mDbHelper.getAllUsersBySQL();
         StringBuffer buffer = new StringBuffer();
         if (cursor.moveToLast()) {
-            buffer.append(cursor.getString(1)+" \n");
-            buffer.append(cursor.getString(2)+" \n");
-            buffer.append(cursor.getString(3)+" \n");
+            buffer.append(cursor.getString(1) + " \n");
+            buffer.append(cursor.getString(2) + " \n");
+            buffer.append(cursor.getString(3) + " \n");
 
         }
         result.setText(buffer);
         buffer.setLength(0);
     }
-
+}
 
    // private void viewAllToImageView() {
   //      TextView result = (TextView)findViewById(R.id.text1);
@@ -142,14 +154,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
+/*
     private void viewAllToListView() {
 
-        Cursor cursor = mDbHelper2.getAllUsersByMethod2();
+        final Cursor cursor = mDbHelper2.getAllUsersByMethod2();
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
-                R.layout.list_item, cursor, new String[]{
+                R.layout.row, cursor, new String[]{
                 UserContract2.Users2.KEY_NAME,
                 UserContract2.Users2.KEY_ADDRESS},
                 new int[]{ R.id.name, R.id.address}, 0);
@@ -165,7 +176,10 @@ public class MainActivity extends AppCompatActivity {
              Intent intent = new Intent(
                     getApplicationContext(),
                     ListActivity.class);
-
+                intent.putExtra("title", cursor.getColumnIndex("id"));
+            intent.putExtra("img", cursor.getColumnIndex("id"));
+            intent.putExtra("artist", cursor.getColumnIndex("id"));
+            intent.putExtra("gpa", cursor.getColumnIndex("id"));
                 startActivity(intent);
             }
 
@@ -173,6 +187,73 @@ public class MainActivity extends AppCompatActivity {
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
+
+    //리스튜
+    class MyAdapter extends BaseAdapter {
+//    Context context;
+//    int layout;
+//    ArrayList<Restaurant> al;
+//    LayoutInflater inf;
+//    public MyAdapter(Context context, int layout, ArrayList<Restaurant> al) {
+//        this.context = context;
+//        this.layout = layout;
+//        this.al = al;
+//        inf = (LayoutInflater)context.getSystemService
+//                (Context.LAYOUT_INFLATER_SERVICE);
+//    }
+//
+//
+//
+//    @Override
+//    public int getCount() {
+//        return al.size();
+//    }
+//    @Override
+//    public Object getItem(int position) {
+//        return al.get(position);
+//    }
+//    @Override
+//    public long getItemId(int position) {
+//        return position;
+//    }
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//        if (convertView==null) {
+//            convertView = inf.inflate(layout, null);
+//        }
+//        ImageView iv = (ImageView)convertView.findViewById(R.id.imageView1);
+//        TextView tvName = (TextView)convertView.findViewById(R.id.textView1);
+//        TextView tvInfo = (TextView)convertView.findViewById(R.id.textView2);
+//        TextView gpa = (TextView)convertView.findViewById(R.id.textView2);
+//
+//        Restaurant m = al.get(position);
+//        iv.setImageResource(m.img);
+//        tvName.setText(m.title2);
+//        tvInfo.setText(m.artist);
+//
+//
+//
+//        return convertView;
+//    }
+//}
+//
+//class Restaurant {
+//    String title2 = "";
+//    int img;
+//    String artist = "";
+//    String gpa = "";
+//
+//
+//    public Restaurant(String title2, int img, String artist, String gpa) {
+//        super();
+//        this.title2 = title2;
+//        this.img = img;
+//        this.artist = artist;
+//        this.gpa = gpa;
+//    }
+//    public Restaurant() {}
+//}
+*/
 
 
 
@@ -190,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+
 
 
 

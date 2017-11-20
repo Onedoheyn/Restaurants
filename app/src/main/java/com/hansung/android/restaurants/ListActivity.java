@@ -20,14 +20,26 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
         mDbHelper2 = new DBHelper2(this);
-        viewAllToListText();
+      //  viewAllToListText();
+        Cursor cursor = mDbHelper2.getAllUsersBySQL();
+        StringBuffer buffer = new StringBuffer();
+        if (cursor.moveToLast()) {
+            buffer.append(cursor.getString(1) + " \n");
+            buffer.append(cursor.getString(2) + " \n");
+            buffer.append(cursor.getString(3) + " \n");
+
+        }
+        TextView result = (TextView) findViewById(R.id.textView1);
+        result.setText(buffer);
+        buffer.setLength(0);
     }
 
 
-
+/*
     private void viewAllToListText() {
 
         Cursor cursor = mDbHelper2.getAllUsersByMethod2();
@@ -46,7 +58,7 @@ public class ListActivity extends AppCompatActivity {
         result.setText(buffer);
         buffer.setLength(0);
     }
-
+*/
 
 
 }
