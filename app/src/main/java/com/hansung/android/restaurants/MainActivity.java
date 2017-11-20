@@ -39,7 +39,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
-    ImageView imageView;
+    ImageView image;
+
 
 
 
@@ -53,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
 
+        image = (ImageView) findViewById(R.id.CM);
+
         Uri imageUri = getIntent().getData();
-        imageView.setImageURI(imageUri);
+        image.setImageURI(imageUri);
 
 
 
