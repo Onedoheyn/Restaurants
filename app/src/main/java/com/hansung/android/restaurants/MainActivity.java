@@ -43,29 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    EditText mName;
-    EditText mAddress;
-    EditText mPhone;
-    EditText mName2;
-    EditText mAddress2;
-    EditText mPhone2;
-    EditText mmPhone;
-    EditText mmName;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
 
-
-        mName = (EditText)findViewById(R.id.editText1);
-        mAddress = (EditText)findViewById(R.id.editText2);
-        mPhone = (EditText)findViewById(R.id.editText3);
-
-        mName2 = (EditText)findViewById(R.id.editText4);
-        mAddress2 = (EditText)findViewById(R.id.editText5);
-        mPhone2 = (EditText)findViewById(R.id.editText6);
 
 
         mDbHelper = new DBHelper(this);
@@ -123,6 +108,20 @@ public class MainActivity extends AppCompatActivity {
         buffer.setLength(0);
     }
 
+   // private void viewAllToImageView() {
+  //      TextView result = (TextView)findViewById(R.id.text1);
+   //     Cursor cursor = mDbHelper.getAllUsersBySQL();
+   //     StringBuffer buffer = new StringBuffer();
+  //      if (cursor.moveToLast()) {
+  //          buffer.append(cursor.getString(1)+" \n");
+
+
+   //     }
+   //     result.setImageUri(mPhotoFIleName);
+  //      buffer.setLength(0);
+   // }
+
+
 
 
 
@@ -149,16 +148,20 @@ public class MainActivity extends AppCompatActivity {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Adapter adapter = adapterView.getAdapter();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
 
-                mmName.setText(((Cursor)adapter.getItem(i)).getString(1));
-                mmPhone.setText(((Cursor)adapter.getItem(i)).getString(2));
+             Intent intent = new Intent(
+                    getApplicationContext(),
+                    ListActivity.class);
+
+                startActivity(intent);
             }
+
         });
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
+
 
 
 
