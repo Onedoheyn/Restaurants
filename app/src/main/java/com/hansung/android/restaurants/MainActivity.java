@@ -39,6 +39,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
+    ImageView imageView;
+
 
 
 
@@ -51,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
 
+        Uri imageUri = getIntent().getData();
+        imageView.setImageURI(imageUri);
+
 
 
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
+
         mDbHelper2 = new DBHelper2(this);
         viewAllToListView();
 
@@ -70,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 
@@ -101,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
             buffer.append(cursor.getString(1)+" \n");
             buffer.append(cursor.getString(2)+" \n");
             buffer.append(cursor.getString(3)+" \n");
-            buffer.append(cursor.getString(4)+" \n");
 
         }
         result.setText(buffer);
         buffer.setLength(0);
     }
+
 
    // private void viewAllToImageView() {
   //      TextView result = (TextView)findViewById(R.id.text1);

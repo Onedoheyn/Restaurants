@@ -58,11 +58,9 @@ public class InsertActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private ImageView imgview;
-    final static String TAG="SQLITEDBTEST";
+    final static String TAG = "SQLITEDBTEST";
 
     final int REQUEST_CODE_READ_CONTACTS = 1;
-
-
 
 
     EditText mName;
@@ -70,16 +68,18 @@ public class InsertActivity extends AppCompatActivity {
     EditText mPhone;
     EditText mmPhone;
     EditText mmName;
+    Uri imageUri;
 
 
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
-       // imgview = (ImageView) findViewById(R.id.Camera);
+        // imgview = (ImageView) findViewById(R.id.Camera);
         ImageButton buttonCamera = (ImageButton) findViewById(R.id.Camera);
 
 
@@ -96,14 +96,14 @@ public class InsertActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent new_intent = new Intent(getApplicationContext(), MainActivity.class);
 
-               // viewAllToListView();
+                // viewAllToListView();
                 startActivity(new_intent);
                 insertRecord();
             }
         });
-        mName = (EditText)findViewById(R.id.editText1);
-        mAddress = (EditText)findViewById(R.id.editText2);
-        mPhone = (EditText)findViewById(R.id.editText3);
+        mName = (EditText) findViewById(R.id.editText1);
+        mAddress = (EditText) findViewById(R.id.editText2);
+        mPhone = (EditText) findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);
 
@@ -113,8 +113,6 @@ public class InsertActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_READ_CONTACTS);
         } else // 권한 있음! 해당 데이터나 장치에 접근!
             getContacts();
-
-
 
 
     }
@@ -165,16 +163,10 @@ public class InsertActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
 //데이터 베이스 코드
 
     private void getContacts() {
-        String [] projection = {
+        String[] projection = {
                 ContactsContract.CommonDataKinds.Phone._ID,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.NUMBER
@@ -184,7 +176,7 @@ public class InsertActivity extends AppCompatActivity {
         String selectionClause = ContactsContract.CommonDataKinds.Phone.TYPE + " = ? ";
 
         // 전화번호 타입이 'MOBILE'인 것을 지정
-        String[] selectionArgs = {""+ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE};
+        String[] selectionArgs = {"" + ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE};
 
         Cursor c = getContentResolver().query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,  // 조회할 데이터 URI
@@ -229,16 +221,21 @@ public class InsertActivity extends AppCompatActivity {
 
 
     private void insertRecord() {
-        EditText name = (EditText)findViewById(R.id.editText1);
-        EditText address = (EditText)findViewById(R.id.editText2);
-        EditText phone = (EditText)findViewById(R.id.editText3);
+        EditText name = (EditText) findViewById(R.id.editText1);
+        EditText address = (EditText) findViewById(R.id.editText2);
+        EditText phone = (EditText) findViewById(R.id.editText3);
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString(),mPhotoFileName);
-        if (nOfRows >0)
-            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString());
+        if (nOfRows > 0) {
+            Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
+            Intent ImageIntent = new Intent(getApplicationContext(), MainActivity.class);
+            ImageIntent.setData(imageUri);
+            startActivity(ImageIntent);
+        } else {
+            Toast.makeText(this, "No Record Inserted", Toast.LENGTH_SHORT).show();
+        }
     }
-
-
 }
+
+
+
