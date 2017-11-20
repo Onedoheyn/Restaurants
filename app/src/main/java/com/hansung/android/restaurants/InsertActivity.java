@@ -152,7 +152,7 @@ public class InsertActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (mPhotoFileName != null) {
                 mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
-
+                imageUri = FileProvider.getUriForFile(this, "com.hansung.android.restaurants", mPhotoFile);
                 ImageButton ImageView = (ImageButton) findViewById(R.id.Camera);
                 ImageView.setImageURI(Uri.fromFile(mPhotoFile));
                 //mAdapter.addItem(new MediaItem(MediaItem.SDCARD, mPhotoFileName, Uri.fromFile(mPhotoFile), MediaItem.IMAGE));
