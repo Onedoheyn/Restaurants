@@ -1,6 +1,7 @@
 package com.hansung.android.restaurants;
 //안드로이드 강의 9주차 ContentProvider 코드 참조
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.Image;
@@ -53,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
         viewAllToTextView1();
         mDbHelper2 = new DBHelper2(this);
         //viewAllToListView();
+
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
+//프래그먼트
+        ListFragment details = new ListFragment();
+
 
 
         Button btn = (Button) findViewById(R.id.buttonCallActivity);
