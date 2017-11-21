@@ -152,9 +152,8 @@ public class InsertActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (mPhotoFileName != null) {
                 mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
-                imageUri = FileProvider.getUriForFile(this, "com.hansung.android.restaurants", mPhotoFile);
-                ImageButton ImageView = (ImageButton) findViewById(R.id.Camera);
-                ImageView.setImageURI(Uri.fromFile(mPhotoFile));
+                Uri uri = Uri.fromFile(mPhotoFile);                ImageButton ImageView = (ImageButton) findViewById(R.id.Camera);
+                ImageView.setImageURI(uri);
                 //mAdapter.addItem(new MediaItem(MediaItem.SDCARD, mPhotoFileName, Uri.fromFile(mPhotoFile), MediaItem.IMAGE));
             }
 
@@ -224,15 +223,14 @@ public class InsertActivity extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.editText1);
         EditText address = (EditText) findViewById(R.id.editText2);
         EditText phone = (EditText) findViewById(R.id.editText3);
+        String restaurantImage = mPhotoFile.getAbsolutePath();
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString());
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(),restaurantImage);
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
-            Intent ImageIntent = new Intent(getApplicationContext(), MainActivity.class);
-            ImageIntent.setData(imageUri);
-            startActivity(ImageIntent);
         } else {
             Toast.makeText(this, "No Record Inserted", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
