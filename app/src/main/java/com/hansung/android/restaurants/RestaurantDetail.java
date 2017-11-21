@@ -21,14 +21,14 @@ public class RestaurantDetail extends AppCompatActivity{
         TextView tvTitle = (TextView)findViewById(R.id.name);
         TextView tvArtist = (TextView)findViewById(R.id.address);
         TextView gpa = (TextView)findViewById(R.id.phone);
-     //   ImageView iv = (ImageView)findViewById(R.id.imageView1);
+
 
 
         Intent intent = getIntent();
         tvTitle.setText(intent.getStringExtra("title"));
         tvArtist.setText(intent.getStringExtra("artist"));
         gpa.setText(intent.getStringExtra("gpa"));
-   //     iv.setImageResource(intent.getIntExtra("img", 0));
+
 
 
 

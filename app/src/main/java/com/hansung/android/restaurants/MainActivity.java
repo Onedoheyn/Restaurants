@@ -137,19 +137,6 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-   // private void viewAllToImageView() {
-  //      TextView result = (TextView)findViewById(R.id.text1);
-   //     Cursor cursor = mDbHelper.getAllUsersBySQL();
-   //     StringBuffer buffer = new StringBuffer();
-  //      if (cursor.moveToLast()) {
-  //          buffer.append(cursor.getString(1)+" \n");
-
-
-   //     }
-   //     result.setImageUri(mPhotoFIleName);
-  //      buffer.setLength(0);
-   // }
-
 
 
 

@@ -42,27 +42,4 @@ public class ListActivity extends AppCompatActivity {
         buffer.setLength(0);
     }
 
-
-/*
-    private void viewAllToListText() {
-
-        Cursor cursor = mDbHelper2.getAllUsersByMethod2();
-        TextView result = (TextView)findViewById(R.id.listtext);
-
-
-
-        StringBuffer buffer = new StringBuffer();
-        if (cursor.moveToNext()) {
-            buffer.append(cursor.getString(1)+" \n");
-            buffer.append(cursor.getString(2)+" \n");
-            buffer.append(cursor.getString(3)+" \n");
-           // buffer.append(cursor.getString(4)+" \n");
-
-        }
-        result.setText(buffer);
-        buffer.setLength(0);
-    }
-*/
-
-
 }
