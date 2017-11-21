@@ -73,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
                 R.layout.row, cursor, new String[]{
                 UserContract2.Users2.KEY_NAME,
-                UserContract2.Users2.KEY_ADDRESS},
-                new int[]{R.id.textView1, R.id.textView2}, 0);
+                UserContract2.Users2.KEY_ADDRESS,
+                UserContract2.Users2.KEY_IMAGE},
+                new int[]{R.id.textView1, R.id.textView2,R.id.imageView1}, 0);
 
         ListView lv = (ListView) findViewById(R.id.listview);
         lv.setAdapter(adapter);

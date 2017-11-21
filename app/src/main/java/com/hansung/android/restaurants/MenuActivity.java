@@ -222,8 +222,9 @@ public class MenuActivity extends AppCompatActivity {
         EditText name2 = (EditText)findViewById(R.id.editText4);
         EditText address2 = (EditText)findViewById(R.id.editText5);
         EditText phone2 = (EditText)findViewById(R.id.editText6);
+        String restaurantImage2 = mPhotoFile.getAbsolutePath();
 
-        long nOfRows = mDbHelper2.insertUserByMethod2(name2.getText().toString(),address2.getText().toString(),phone2.getText().toString());
+        long nOfRows = mDbHelper2.insertUserByMethod2(name2.getText().toString(),address2.getText().toString(),phone2.getText().toString(),restaurantImage2);
         if (nOfRows >0)
             Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
         else

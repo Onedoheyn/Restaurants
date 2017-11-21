@@ -79,12 +79,13 @@ public class DBHelper2 extends SQLiteOpenHelper {
         }
     }
 
-    public long insertUserByMethod2(String name2, String address2, String phone2) {
+    public long insertUserByMethod2(String name2, String address2, String phone2,String image2) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserContract.Users.KEY_NAME, name2);
         values.put(UserContract.Users.KEY_ADDRESS, address2);
         values.put(UserContract.Users.KEY_PHONE,phone2);
+        values.put(UserContract.Users.KEY_IMAGE,image2);
 
         return db.insert(UserContract.Users.TABLE_NAME,null,values);
     }
