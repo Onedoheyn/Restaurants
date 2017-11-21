@@ -1,5 +1,5 @@
 package com.hansung.android.restaurants;
-
+//과제1
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;

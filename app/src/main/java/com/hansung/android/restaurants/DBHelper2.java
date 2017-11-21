@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+//메뉴에 대한 데이터베이스
 public class DBHelper2 extends SQLiteOpenHelper {
     final static String TAG="SQLiteDBTest2";
 

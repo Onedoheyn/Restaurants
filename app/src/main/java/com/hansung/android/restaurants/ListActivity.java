@@ -27,6 +27,8 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.list);
         mDbHelper2 = new DBHelper2(this);
       //  viewAllToListText();
+
+        //리스트뷰 온클릭 액티비티에 데이터베이스 불러옴
         Cursor cursor = mDbHelper2.getAllUsersBySQL();
         StringBuffer buffer = new StringBuffer();
         ImageView CameraImage = (ImageView)findViewById(R.id.imageView1);

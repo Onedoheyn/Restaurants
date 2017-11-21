@@ -2,7 +2,7 @@ package com.hansung.android.restaurants;
 
 
 import android.provider.BaseColumns;
-
+//맛집에 대한 데이터베이스
 public final class UserContract {
     public static final String DB_NAME="user.db";
     public static final int DATABASE_VERSION = 1;

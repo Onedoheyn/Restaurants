@@ -48,10 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insertresult);
 
-        image = (ImageView) findViewById(R.id.CM);
-        Uri imageUri = getIntent().getData();
-        image.setImageURI(imageUri);
-
 
         mDbHelper = new DBHelper(this);
         viewAllToTextView1();
@@ -104,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
+//액션바
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -145,129 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-/*
-    private void viewAllToListView() {
-
-        final Cursor cursor = mDbHelper2.getAllUsersByMethod2();
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
-                R.layout.row, cursor, new String[]{
-                UserContract2.Users2.KEY_NAME,
-                UserContract2.Users2.KEY_ADDRESS},
-                new int[]{ R.id.name, R.id.address}, 0);
-
-        ListView lv = (ListView)findViewById(R.id.listview);
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-
-             Intent intent = new Intent(
-                    getApplicationContext(),
-                    ListActivity.class);
-                intent.putExtra("title", cursor.getColumnIndex("id"));
-            intent.putExtra("img", cursor.getColumnIndex("id"));
-            intent.putExtra("artist", cursor.getColumnIndex("id"));
-            intent.putExtra("gpa", cursor.getColumnIndex("id"));
-                startActivity(intent);
-            }
-
-        });
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    }
-
-
-    //리스튜
-    class MyAdapter extends BaseAdapter {
-//    Context context;
-//    int layout;
-//    ArrayList<Restaurant> al;
-//    LayoutInflater inf;
-//    public MyAdapter(Context context, int layout, ArrayList<Restaurant> al) {
-//        this.context = context;
-//        this.layout = layout;
-//        this.al = al;
-//        inf = (LayoutInflater)context.getSystemService
-//                (Context.LAYOUT_INFLATER_SERVICE);
-//    }
-//
-//
-//
-//    @Override
-//    public int getCount() {
-//        return al.size();
-//    }
-//    @Override
-//    public Object getItem(int position) {
-//        return al.get(position);
-//    }
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        if (convertView==null) {
-//            convertView = inf.inflate(layout, null);
-//        }
-//        ImageView iv = (ImageView)convertView.findViewById(R.id.imageView1);
-//        TextView tvName = (TextView)convertView.findViewById(R.id.textView1);
-//        TextView tvInfo = (TextView)convertView.findViewById(R.id.textView2);
-//        TextView gpa = (TextView)convertView.findViewById(R.id.textView2);
-//
-//        Restaurant m = al.get(position);
-//        iv.setImageResource(m.img);
-//        tvName.setText(m.title2);
-//        tvInfo.setText(m.artist);
-//
-//
-//
-//        return convertView;
-//    }
-//}
-//
-//class Restaurant {
-//    String title2 = "";
-//    int img;
-//    String artist = "";
-//    String gpa = "";
-//
-//
-//    public Restaurant(String title2, int img, String artist, String gpa) {
-//        super();
-//        this.title2 = title2;
-//        this.img = img;
-//        this.artist = artist;
-//        this.gpa = gpa;
-//    }
-//    public Restaurant() {}
-//}
-*/
-
-
-
-
-//사진
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//과제1
 
 // al.add(new Restaurant("아메리카노",R.drawable.img1,"2100원","평점4.5"));
 //        al.add(new Restaurant("카라멜 마끼야또",R.drawable.img2,"3200원","평점4.8"));
