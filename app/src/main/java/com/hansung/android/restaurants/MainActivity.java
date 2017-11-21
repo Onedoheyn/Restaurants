@@ -1,5 +1,5 @@
 package com.hansung.android.restaurants;
-
+//안드로이드 강의 9주차 ContentProvider 코드 참조
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//과제1
+//과제1에 사용한 코드
 
 // al.add(new Restaurant("아메리카노",R.drawable.img1,"2100원","평점4.5"));
 //        al.add(new Restaurant("카라멜 마끼야또",R.drawable.img2,"3200원","평점4.8"));

@@ -3,6 +3,7 @@ package com.hansung.android.restaurants;
 
 import android.provider.BaseColumns;
 //메뉴에 대한 데이터베이스
+//안드로이드 강의 9주차 sqllitedbtest 참조
 public final class UserContract2 {
     public static final String DB_NAME="user2.db";
     public static final int DATABASE_VERSION = 1;

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.media.Image;
 import android.util.Log;
 //맛집에 대한 데이터베이스
+//안드로이드 9주차 강의 참조
 
 public class DBHelper extends SQLiteOpenHelper {
     final static String TAG="SQLiteDBTest";

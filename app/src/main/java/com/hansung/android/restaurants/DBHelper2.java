@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 //메뉴에 대한 데이터베이스
+//안드로이드 9주차 강의 참조
 public class DBHelper2 extends SQLiteOpenHelper {
     final static String TAG="SQLiteDBTest2";
 

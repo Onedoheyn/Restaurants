@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * Created by pc on 2017-11-19.
  */
-
+//안드로이드 강의 9주차의 SQLiteDBtest 코드 참조
 public class ListActivity extends AppCompatActivity {
     private DBHelper2 mDbHelper2;
 
