@@ -118,19 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void viewAllToTextView1() {
         TextView result = (TextView) findViewById(R.id.text1);
-        ImageView CameraImage = (ImageView)findViewById(R.id.CM);
         Cursor cursor = mDbHelper.getAllUsersBySQL();
         StringBuffer buffer = new StringBuffer();
         if (cursor.moveToLast()) {
             buffer.append(cursor.getString(1) + " \n");
             buffer.append(cursor.getString(2) + " \n");
             buffer.append(cursor.getString(3) + " \n");
-            CameraImage.setImageURI(Uri.parse(cursor.getString(4)));
-
-
 
         }
-
         result.setText(buffer);
         buffer.setLength(0);
     }
