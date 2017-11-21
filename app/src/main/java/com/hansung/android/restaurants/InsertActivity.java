@@ -66,20 +66,18 @@ public class InsertActivity extends AppCompatActivity {
     EditText mName;
     EditText mAddress;
     EditText mPhone;
-    EditText mmPhone;
-    EditText mmName;
-    Uri imageUri;
+
 
 
     private DBHelper mDbHelper;
-    private DBHelper2 mDbHelper2;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
-        // imgview = (ImageView) findViewById(R.id.Camera);
+
         ImageButton buttonCamera = (ImageButton) findViewById(R.id.Camera);
 
 
@@ -90,13 +88,12 @@ public class InsertActivity extends AppCompatActivity {
             }
         });
 
-        Button btn = (Button) findViewById(R.id.Insert);
 
+        //---등록하기 버튼 누를 시 MainActivity로 넘어감---//
+        Button btn = (Button) findViewById(R.id.Insert);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent new_intent = new Intent(getApplicationContext(), MainActivity.class);
-
-                // viewAllToListView();
                 startActivity(new_intent);
                 insertRecord();
             }
@@ -106,7 +103,7 @@ public class InsertActivity extends AppCompatActivity {
         mPhone = (EditText) findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);
-
+            //-----------권한 확인 -------- //
         if (ContextCompat.checkSelfPermission(InsertActivity.this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) { // 권한이 없으므로, 사용자에게 권한 요청 다이얼로그 표시
             ActivityCompat.requestPermissions(InsertActivity.this,
@@ -223,7 +220,8 @@ public class InsertActivity extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.editText1);
         EditText address = (EditText) findViewById(R.id.editText2);
         EditText phone = (EditText) findViewById(R.id.editText3);
-        String restaurantImage = mPhotoFile.getAbsolutePath();
+        String restaurantImage = mPhotoFile.getAbsolutePath();//참조 : http://hashcode.co.kr/questions/296/%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C-getpath-getabsolutepath-getcanonicalpath
+                                                                    // %EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90%EC%9D%B4-%EB%AD%94%EA%B0%80%EC%9A%94
 
         long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(),restaurantImage);
         if (nOfRows > 0) {
