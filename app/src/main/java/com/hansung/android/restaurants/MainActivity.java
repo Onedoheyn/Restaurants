@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         result.setText(buffer);
         buffer.setLength(0);
     }
+
 }
 
 

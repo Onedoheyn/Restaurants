@@ -57,56 +57,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu2, menu);
         return super.onCreateOptionsMenu(menu);
-
-        mDbHelper3 = new DBHelper3(this);
-        //-----------권한 확인 -------- //
-        if (ContextCompat.checkSelfPermission(MapActivity.this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) { // 권한이 없으므로, 사용자에게 권한 요청 다이얼로그 표시
-            ActivityCompat.requestPermissions(MapActivity.this,
-                    new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_READ_CONTACTS);
-        } else // 권한 있음! 해당 데이터나 장치에 접근!
-            getContacts();
-    }
-    private void getContacts() {
-        String[] projection = {
-                ContactsContract.CommonDataKinds.Phone._ID,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-        };
-
-        // 연락처 전화번호 타입에 따른 행 선택을 위한 선택 절
-        String selectionClause = ContactsContract.CommonDataKinds.Phone.TYPE + " = ? ";
-
-        // 전화번호 타입이 'MOBILE'인 것을 지정
-        String[] selectionArgs = {"" + ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE};
-
-        Cursor c = getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,  // 조회할 데이터 URI
-                projection,         // 조회할 컬럼 들
-                selectionClause,    // 선택될 행들에 대한선택될 행들에 대한 조건절
-                selectionArgs,      // 조건절에 필요한 파라미터
-                null);              // 정렬 안
-
-        String[] contactsColumns = { // 쿼리결과인 Cursor 객체로부터 출력할 열들
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-        };
-
-        int[] contactsListItems = { // 열의 값을 출력할 뷰 ID (layout/item.xml 내)
-
-                R.id.name,
-                R.id.address,
-                R.id.phone,
-                0
-        };
-
-        android.support.v4.widget.SimpleCursorAdapter adapter = new android.support.v4.widget.SimpleCursorAdapter(this,
-                R.layout.item2,
-                c,
-                contactsColumns,
-                contactsListItems,
-                0);
-
     }
 
     @Override
@@ -168,7 +118,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             getLastLocation();
         }
 
-
+        mDbHelper3 = new DBHelper3(this);
 
         }
 
@@ -261,7 +211,7 @@ public  boolean onMarkerClick(Marker marker){
                 intent.putExtra("name",inputedit.getText().toString());
 
 
-
+                insertRecord();
 
                 startActivity(intent);
             }
@@ -310,7 +260,41 @@ public  boolean onMarkerClick(Marker marker){
         }
     }
 
+    private void insertRecord() {
+        EditText inputedit = (EditText) findViewById(R.id.edittext);
+        TextView addressTextView = (TextView) findViewById(R.id.textview);
+        TextView addressTextView2 = (TextView) findViewById(R.id.textview2);
+        String input = inputedit.getText().toString();
 
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+            List<Address> addresses = geocoder.getFromLocationName(input,1);
+            if (addresses.size() >0) {
+                Address address = addresses.get(0);
+                addressTextView.setText(String.format("%s", address.getLatitude()));
+                addressTextView2.setText(String.format("%s",address.getLongitude()));
 
+                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+                mGoogleMap.addMarker(
+                        new MarkerOptions().
+                                position(location).
+                                title(input)
+                );
+                mGoogleMap.setOnMarkerClickListener(this);
+            }
+        } catch (IOException e) {
+            Log.e("LocationService", "Failed in using Geocoder",e);
+        }
+
+        long nOfRows = mDbHelper3.insertUserByMethod(addressTextView.getText().toString(), addressTextView2.getText().toString());
+        if (nOfRows > 0) {
+            Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No Record Inserted", Toast.LENGTH_SHORT).show();
+        }
+        //오류나면 data-data-databases 에서 db삭제하고 다시해보기
+
+    }
 
 }

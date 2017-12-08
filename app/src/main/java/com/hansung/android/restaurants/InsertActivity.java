@@ -106,6 +106,7 @@ public class InsertActivity extends AppCompatActivity {
         mAddress = (EditText) findViewById(R.id.editText2);
 
         txt_next = (TextView)findViewById(R.id.editText2);
+ 
         txt_next.setText(name);
 
 
