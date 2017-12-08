@@ -1,8 +1,10 @@
 package com.hansung.android.restaurants;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -182,13 +184,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
-mGoogleMap.setOnMarkerClickListener(this);
-
+        mGoogleMap.setOnMarkerClickListener(this);
     }
 
     @Override
-    public  boolean onMarkerClick(Marker marker){
-     //   Toast,makeText(this,marker.getTitle()+"\n"+marker.getPosition(),Toast.LENGTH_SHORT).show();
+public  boolean onMarkerClick(Marker marker){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("등록");
+        alert.setMessage("새로운 맛집등록하시겠습니까 ? ");
+        alert.setPositiveButton("네", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        alert.show();
         return  true;
 
     }

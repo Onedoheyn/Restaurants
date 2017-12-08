@@ -38,7 +38,8 @@
         <activity android:name=".MapActivity"></activity>
         <activity android:name=".InsertResultActivity"
              />
-
+        <activity android:name=".InsertActivity"
+            android:label="MainActivity"/>
         <activity android:name=".MainActivity"
             android:label="MainActivity"/>
         <activity android:name=".MenuActivity"
