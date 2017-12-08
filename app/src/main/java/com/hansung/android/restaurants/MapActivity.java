@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import android.location.Location;
@@ -42,7 +43,7 @@ import java.util.Locale;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -157,10 +158,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     mCurrentLocation = location;
                     LatLng location1 = new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1,15));
+                    mGoogleMap.addMarker(
+                            new MarkerOptions().
+                                    position(location1).
+                                    title(input)
+                    );
                     Toast.makeText(getApplicationContext(),
                             "위도 "+mCurrentLocation.getLatitude()+"경도 "+mCurrentLocation.getLongitude(),
                             Toast.LENGTH_SHORT)
                             .show();
+
 
                     //Toast.makeText(getApplicationContext(), mCurrentLocation.getLatitude() +  Toast.LENGTH_SHORT).show();
                     //updateUI();
@@ -175,8 +182,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
+mGoogleMap.setOnMarkerClickListener(this);
+
     }
 
+    @Override
+    public  boolean onMarkerClick(Marker marker){
+     //   Toast,makeText(this,marker.getTitle()+"\n"+marker.getPosition(),Toast.LENGTH_SHORT).show();
+        return  true;
+
+    }
     private void getaddress() {
         EditText inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
