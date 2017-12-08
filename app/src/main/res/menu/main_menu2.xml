@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-
+        android:id="@+id/gps"
         android:title="Quick2"
         android:icon="@drawable/ic_gps_fixed_black_24dp"
         app:showAsAction="ifRoom|withText"/>
