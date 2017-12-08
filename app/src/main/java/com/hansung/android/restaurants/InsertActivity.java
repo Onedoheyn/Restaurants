@@ -63,17 +63,19 @@ public class InsertActivity extends AppCompatActivity {
     final int REQUEST_CODE_READ_CONTACTS = 1;
 
 
+
     EditText mName;
     EditText mAddress;
     EditText mPhone;
 
-
+    TextView txt_next;
 
     private DBHelper mDbHelper;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
@@ -98,8 +100,16 @@ public class InsertActivity extends AppCompatActivity {
                 insertRecord();
             }
         });
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
         mName = (EditText) findViewById(R.id.editText1);
         mAddress = (EditText) findViewById(R.id.editText2);
+
+        txt_next = (TextView)findViewById(R.id.editText2);
+        txt_next.setText(name);
+
+
+
         mPhone = (EditText) findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);

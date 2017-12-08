@@ -46,6 +46,8 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener{
+
+    EditText inputedit;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -199,6 +201,12 @@ public  boolean onMarkerClick(Marker marker){
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
+
+                intent.putExtra("name",inputedit.getText().toString());
+
+
+
+
                 startActivity(intent);
             }
         });
@@ -213,9 +221,10 @@ public  boolean onMarkerClick(Marker marker){
 
     }
     private void getaddress() {
-        EditText inputedit = (EditText) findViewById(R.id.edittext);
+     inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
         String input = inputedit.getText().toString();
+
         try {
             Geocoder geocoder = new Geocoder(this, Locale.KOREA);
             List<Address> addresses = geocoder.getFromLocationName(input, 1);
@@ -244,7 +253,6 @@ public  boolean onMarkerClick(Marker marker){
             return;
         }
     }
-//////////
 
 
 
