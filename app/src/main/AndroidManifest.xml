@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InsertActivity"
-            android:label="InsertActivity">
+        <activity android:name=".AnimationActivity"
+            android:label="AnimationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +29,7 @@
                 <data android:scheme="tel" />
             </intent-filter>
         </activity>
+        <activity android:name=".MapActivity"></activity>
         <activity android:name=".InsertResultActivity"
              />
 
