@@ -53,13 +53,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.gps:
 
+            case R.id.gps:
+               getLastLocation();
                 return true;
+
+//
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 
@@ -74,9 +78,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
-
-
-
 
 
         Button button = (Button) findViewById(R.id.button);

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/gps"
-        android:title="Quick2"
+        android:title="Quick3"
         android:icon="@drawable/ic_gps_fixed_black_24dp"
         app:showAsAction="ifRoom|withText"/>
     <group android:checkableBehavior="single">

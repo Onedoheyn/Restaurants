@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.quick_action1:
                 startActivity(new Intent(this, MenuActivity.class));
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
