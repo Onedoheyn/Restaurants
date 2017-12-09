@@ -177,8 +177,8 @@ public class InsertActivity extends AppCompatActivity {
 
     private void insertRecord() {
         EditText name = (EditText) findViewById(R.id.editText1);
-        EditText address = (EditText) findViewById(R.id.editText4);
-        EditText phone = (EditText) findViewById(R.id.editText5);
+        EditText address = (EditText) findViewById(R.id.editText2);
+        EditText phone = (EditText) findViewById(R.id.editText3);
 
         String photo = mPhotoFile.getAbsolutePath(); //http://sexy.pe.kr/tc/763 참조
 
@@ -191,8 +191,6 @@ public class InsertActivity extends AppCompatActivity {
         //오류나면 data-data-databases 에서 db삭제하고 다시해보기
 
     }
-
-
 
     private void viewAllToTextView2() {
         EditText address2  = (EditText) findViewById(R.id.editText2);
