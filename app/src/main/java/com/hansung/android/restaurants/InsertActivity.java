@@ -179,10 +179,13 @@ public class InsertActivity extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.editText1);
         EditText address = (EditText) findViewById(R.id.editText2);
         EditText phone = (EditText) findViewById(R.id.editText3);
+        EditText wo = (EditText) findViewById(R.id.editwo);
+        EditText go = (EditText) findViewById(R.id.editgo);
 
         String photo = mPhotoFile.getAbsolutePath(); //http://sexy.pe.kr/tc/763 참조
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(), photo);
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(), photo,
+                wo.getText().toString(), go.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
@@ -193,7 +196,7 @@ public class InsertActivity extends AppCompatActivity {
     }
 
     private void viewAllToTextView2() {
-        EditText address2  = (EditText) findViewById(R.id.editText2);
+        EditText address2  = (EditText) findViewById(R.id.editwo);
         Cursor cursor = mDbHelper3.getAllUsersBySQL();
 
         StringBuffer buffer = new StringBuffer();
@@ -203,7 +206,7 @@ public class InsertActivity extends AppCompatActivity {
         address2.setText(buffer);
     }
     private void viewAllToTextView3() {
-        EditText address3 = (EditText) findViewById(R.id.editText3);
+        EditText address3 = (EditText) findViewById(R.id.editgo);
 
         Cursor cursor = mDbHelper3.getAllUsersBySQL();
 

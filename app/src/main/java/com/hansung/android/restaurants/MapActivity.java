@@ -34,6 +34,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -207,13 +208,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //        for(z=0; z < cursor.getPosition(); z++){
 
         while (cursor.moveToNext()) {
-            double x = cursor.getDouble(2);
-            double y = cursor.getDouble(3);
+            double x = cursor.getDouble(5);
+            double y = cursor.getDouble(6);
 
             MarkerOptions makerOptions = new MarkerOptions();
             makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
                     .position(new LatLng(x, y))
-                    .title("마커"); // 타이틀.
+                    .title("마커") // 타이틀.
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
             // 2. 마커 생성 (마커를 나타냄)
             mGoogleMap.addMarker(makerOptions);

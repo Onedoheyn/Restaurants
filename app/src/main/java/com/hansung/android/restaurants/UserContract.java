@@ -20,13 +20,17 @@ public final class UserContract {
         public static final String KEY_ADDRESS="Address";
         public static final String KEY_PHONE = "Phone";
         public static final String KEY_IMAGE = "Image";
+        public static final String KEY_W = "LATITUDE";
+        public static final String KEY_G = "LONGITUDE";
 
         public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
                 KEY_NAME + TEXT_TYPE + COMMA_SEP +
                 KEY_ADDRESS + TEXT_TYPE + COMMA_SEP +
                 KEY_PHONE + TEXT_TYPE +  COMMA_SEP +
-                KEY_IMAGE + TEXT_TYPE +
+                KEY_IMAGE + TEXT_TYPE + COMMA_SEP +
+                KEY_W + TEXT_TYPE + COMMA_SEP +
+                KEY_G + TEXT_TYPE +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
