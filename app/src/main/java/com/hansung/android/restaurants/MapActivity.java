@@ -49,6 +49,8 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener{
+
+    private DBHelper DbHelper;
     private DBHelper3 mDbHelper3;
     EditText inputedit;
     final int REQUEST_CODE_READ_CONTACTS = 1;
@@ -99,6 +101,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             }
         });
+        DbHelper = new DBHelper(this);
+        mDbHelper3 = new DBHelper3(this);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -118,7 +123,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             getLastLocation();
         }
 
-        mDbHelper3 = new DBHelper3(this);
+
 
         }
 
@@ -193,6 +198,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap = googleMap;
 
         mGoogleMap.setOnMarkerClickListener(this);
+        Cursor cursor = DbHelper.getAllUsersBySQL();
+        cursor.moveToFirst();
+
+//        int z;
+
+
+//        for(z=0; z < cursor.getPosition(); z++){
+
+        while (cursor.moveToNext()) {
+            double x = cursor.getDouble(2);
+            double y = cursor.getDouble(3);
+
+            MarkerOptions makerOptions = new MarkerOptions();
+            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+                    .position(new LatLng(x, y))
+                    .title("마커"); // 타이틀.
+
+            // 2. 마커 생성 (마커를 나타냄)
+            mGoogleMap.addMarker(makerOptions);
+        }
     }
 
     @Override
@@ -208,7 +233,6 @@ public  boolean onMarkerClick(Marker marker){
 
                 Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
 
-                intent.putExtra("name",inputedit.getText().toString());
 
 
                 insertRecord();
@@ -261,9 +285,9 @@ public  boolean onMarkerClick(Marker marker){
     }
 
     private void insertRecord() {
-        EditText inputedit = (EditText) findViewById(R.id.edittext);
-        TextView addressTextView = (TextView) findViewById(R.id.textview);
-        TextView addressTextView2 = (TextView) findViewById(R.id.textview2);
+        inputedit = (EditText) findViewById(R.id.edittext);
+        TextView mResultText = (TextView) findViewById(R.id.textview);
+        TextView mResultText2 = (TextView) findViewById(R.id.textview2);
         String input = inputedit.getText().toString();
 
         try {
@@ -271,8 +295,8 @@ public  boolean onMarkerClick(Marker marker){
             List<Address> addresses = geocoder.getFromLocationName(input,1);
             if (addresses.size() >0) {
                 Address address = addresses.get(0);
-                addressTextView.setText(String.format("%s", address.getLatitude()));
-                addressTextView2.setText(String.format("%s",address.getLongitude()));
+                mResultText.setText(String.format("%s", address.getLatitude()));
+              mResultText2.setText(String.format("%s",address.getLongitude()));
 
                 LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
@@ -283,11 +307,12 @@ public  boolean onMarkerClick(Marker marker){
                 );
                 mGoogleMap.setOnMarkerClickListener(this);
             }
+
         } catch (IOException e) {
             Log.e("LocationService", "Failed in using Geocoder",e);
         }
 
-        long nOfRows = mDbHelper3.insertUserByMethod(addressTextView.getText().toString(), addressTextView2.getText().toString());
+        long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
