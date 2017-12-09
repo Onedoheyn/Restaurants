@@ -179,13 +179,10 @@ public class InsertActivity extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.editText1);
         EditText address = (EditText) findViewById(R.id.editText4);
         EditText phone = (EditText) findViewById(R.id.editText5);
-        EditText address2  = (EditText) findViewById(R.id.editText2);
-        EditText address3 = (EditText) findViewById(R.id.editText3);
 
         String photo = mPhotoFile.getAbsolutePath(); //http://sexy.pe.kr/tc/763 참조
 
-        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(), photo
-        , address2.getText().toString(), address3.getText().toString());
+        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(), photo);
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
