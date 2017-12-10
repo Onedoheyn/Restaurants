@@ -63,7 +63,6 @@ public class InsertActivity extends AppCompatActivity {
     final int REQUEST_CODE_READ_CONTACTS = 1;
 
 
-
     EditText mName;
     EditText mAddress;
     EditText mPhone;
@@ -109,7 +108,9 @@ public class InsertActivity extends AppCompatActivity {
 
         viewAllToTextView2();
         viewAllToTextView3();
-            //-----------권한 확인 -------- //
+        viewAllToTextView4();
+        viewAllToTextView5();
+        //-----------권한 확인 -------- //
 
         /*
         if (ContextCompat.checkSelfPermission(InsertActivity.this, Manifest.permission.READ_CONTACTS)
@@ -131,6 +132,7 @@ public class InsertActivity extends AppCompatActivity {
         String currentTimeStamp = dateFormat.format(new Date());
         return currentTimeStamp;
     }
+
     // 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -152,7 +154,8 @@ public class InsertActivity extends AppCompatActivity {
         }
 
     }
-//이미지버튼으로 카메라로 찍은사진 저장
+
+    //이미지버튼으로 카메라로 찍은사진 저장
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (mPhotoFileName != null) {
@@ -171,21 +174,19 @@ public class InsertActivity extends AppCompatActivity {
 //데이터 베이스 코드
 
 
-
-
-
-
     private void insertRecord() {
         EditText name = (EditText) findViewById(R.id.editText1);
         EditText address = (EditText) findViewById(R.id.editText2);
         EditText phone = (EditText) findViewById(R.id.editText3);
         EditText wo = (EditText) findViewById(R.id.editwo);
         EditText go = (EditText) findViewById(R.id.editgo);
+        EditText wo2 = (EditText) findViewById(R.id.wo2);
+        EditText go2 = (EditText) findViewById(R.id.go2);
 
         String photo = mPhotoFile.getAbsolutePath(); //http://sexy.pe.kr/tc/763 참조
 
         long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(), address.getText().toString(), phone.getText().toString(), photo,
-                wo.getText().toString(), go.getText().toString());
+                wo.getText().toString(), go.getText().toString(),  wo2.getText().toString(),  go2.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
@@ -196,30 +197,51 @@ public class InsertActivity extends AppCompatActivity {
     }
 
     private void viewAllToTextView2() {
-        EditText address2  = (EditText) findViewById(R.id.editwo);
+        EditText wo = (EditText) findViewById(R.id.editwo);
         Cursor cursor = mDbHelper3.getAllUsersBySQL();
 
         StringBuffer buffer = new StringBuffer();
-        if(cursor.moveToLast()){
+        if (cursor.moveToLast()) {
             buffer.append(cursor.getString(1) + " \n");
         }
-        address2.setText(buffer);
+       wo.setText(buffer);
     }
+
     private void viewAllToTextView3() {
-        EditText address3 = (EditText) findViewById(R.id.editgo);
+        EditText go = (EditText) findViewById(R.id.editgo);
 
         Cursor cursor = mDbHelper3.getAllUsersBySQL();
 
         StringBuffer buffer = new StringBuffer();
-        if(cursor.moveToLast()){
+        if (cursor.moveToLast()) {
             buffer.append(cursor.getString(2) + " \n");
         }
-
-
-        address3.setText(buffer);
+        go.setText(buffer);
     }
 
-}
+    private void viewAllToTextView4() {
+        EditText wo2 = (EditText) findViewById(R.id.wo2);
 
+        Cursor cursor = mDbHelper3.getAllUsersBySQL();
+
+        StringBuffer buffer = new StringBuffer();
+        if (cursor.moveToLast()) {
+            buffer.append(cursor.getString(3) + " \n");
+        }
+        wo2.setText(buffer);
+    }
+
+    private void viewAllToTextView5() {
+        EditText go2 = (EditText) findViewById(R.id.go2);
+
+        Cursor cursor = mDbHelper3.getAllUsersBySQL();
+
+        StringBuffer buffer = new StringBuffer();
+        if (cursor.moveToLast()) {
+            buffer.append(cursor.getString(4) + " \n");
+        }
+        go2.setText(buffer);
+    }
+}
 
 

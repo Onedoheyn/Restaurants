@@ -53,6 +53,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private DBHelper DbHelper;
     private DBHelper3 mDbHelper3;
+    double DIS;
+    double distance = 0;
     EditText inputedit;
     final int REQUEST_CODE_READ_CONTACTS = 1;
     @Override
@@ -68,7 +70,32 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             case R.id.gps:
                getLastLocation();
+
+             //  double x = mCurrentLocation.getLatitude();
+              // double y = mCurrentLocation.getLongitude();
+
+             //   TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+             //   TextView mResultText4 = (TextView) findViewById(R.id.textview4);
+
+             //   mResultText3.setText(String.format("[ %s ]",
+              //         mCurrentLocation.getLatitude()));
+
+              //  mResultText4.setText(String.format("[ %s]",
+
+              //          mCurrentLocation.getLongitude()));
+
+
                 return true;
+
+            case R.id.map_1km:
+
+
+
+
+            
+
+
+
 
 //
             default:
@@ -193,6 +220,39 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+
+
+   // public double getGunWoo()
+    //{
+
+
+        //double si = mCurrentLocation.getLongitude();
+        //double bal = mCurrentLocation.getLatitude();
+        //si 가 현재 위도고 bal이 현재 경도임 이걸로 거리계산 해야함
+
+
+       // Location loc1= new Location("location 1 name");
+       // Location loc2 = new Location("location 2 name");
+
+        //loc1.setLatitude(mCurrentLocation.getLatitude());
+       // loc1.setLongitude(mCurrentLocation.getLongitude());
+
+        //------------여기에 DB의 맛집 위도경도 들가야함--------------//
+        //loc2.setLatitude(locarion2 .getLatitude());
+       // loc2.setLongitude(locarion2 .getLongitude());
+
+
+
+       // return loc1 .distanceTo(loc2);
+   // }
+
+
+
+
+
+
+
+
     @Override
 
     public void onMapReady(GoogleMap googleMap) {
@@ -255,7 +315,13 @@ public  boolean onMarkerClick(Marker marker){
     private void getaddress() {
      inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
+        TextView mResultText2 = (TextView) findViewById(R.id.textview2);
+        TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+        TextView mResultText4 = (TextView) findViewById(R.id.textview4);
         String input = inputedit.getText().toString();
+
+
+
 
         try {
             Geocoder geocoder = new Geocoder(this, Locale.KOREA);
@@ -263,9 +329,17 @@ public  boolean onMarkerClick(Marker marker){
             if (addresses.size() > 0) {
                 Address bestResult = (Address) addresses.get(0);
 
-                mResultText.setText(String.format("[ %s , %s ]",
-                        bestResult.getLatitude(),
+                mResultText.setText(String.format("[ %s  ]",
+                        bestResult.getLatitude()));
+
+                mResultText2.setText(String.format("[ %s ]",
                         bestResult.getLongitude()));
+
+                mResultText3.setText(String.format("[ %s ]",
+                        mCurrentLocation.getLatitude()));
+
+                mResultText4.setText(String.format("[ %s ]",
+                        mCurrentLocation.getLongitude()));
 
                 /// 위치설정
                 LatLng location1 = new LatLng(bestResult.getLatitude(), bestResult.getLongitude());
@@ -290,6 +364,8 @@ public  boolean onMarkerClick(Marker marker){
         inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
+        TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+        TextView mResultText4 = (TextView) findViewById(R.id.textview4);
         String input = inputedit.getText().toString();
 
         try {
@@ -298,7 +374,9 @@ public  boolean onMarkerClick(Marker marker){
             if (addresses.size() >0) {
                 Address address = addresses.get(0);
                 mResultText.setText(String.format("%s", address.getLatitude()));
-              mResultText2.setText(String.format("%s",address.getLongitude()));
+                mResultText2.setText(String.format("%s",address.getLongitude()));
+                mResultText3.setText(String.format("%s",mCurrentLocation.getLatitude()));
+                mResultText4.setText(String.format("%s",mCurrentLocation.getLongitude()));
 
                 LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
@@ -314,7 +392,8 @@ public  boolean onMarkerClick(Marker marker){
             Log.e("LocationService", "Failed in using Geocoder",e);
         }
 
-        long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString());
+        long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString()
+        ,mResultText3.getText().toString(), mResultText4.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {

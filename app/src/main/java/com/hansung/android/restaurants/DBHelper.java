@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    public long insertUserByMethod( String name, String address, String phone, String image ,  String w, String g) {
+    public long insertUserByMethod( String name, String address, String phone, String image ,  String w, String g, String ww, String gg) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserContract.Users.KEY_NAME, name);
@@ -48,7 +48,9 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(UserContract.Users.KEY_PHONE,phone);
         values.put(UserContract.Users.KEY_IMAGE,image);
         values.put(UserContract.Users.KEY_W,w);
-       values.put(UserContract.Users.KEY_G,g);
+        values.put(UserContract.Users.KEY_G,g);
+        values.put(UserContract.Users.KEY_WW,ww);
+        values.put(UserContract.Users.KEY_GG,gg);
 
         return db.insert(UserContract.Users.TABLE_NAME,null,values);
     }

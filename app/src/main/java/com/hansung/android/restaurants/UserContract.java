@@ -22,6 +22,8 @@ public final class UserContract {
         public static final String KEY_IMAGE = "Image";
         public static final String KEY_W = "LATITUDE";
         public static final String KEY_G = "LONGITUDE";
+        public static final String KEY_WW = "LATITUDE2";
+        public static final String KEY_GG = "LONGITUDE2";
 
         public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
@@ -30,7 +32,9 @@ public final class UserContract {
                 KEY_PHONE + TEXT_TYPE +  COMMA_SEP +
                 KEY_IMAGE + TEXT_TYPE + COMMA_SEP +
                 KEY_W + TEXT_TYPE + COMMA_SEP +
-                KEY_G + TEXT_TYPE +
+                KEY_G + TEXT_TYPE + COMMA_SEP +
+                KEY_WW + TEXT_TYPE + COMMA_SEP +
+                KEY_GG + TEXT_TYPE +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     }

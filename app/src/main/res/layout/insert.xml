@@ -101,6 +101,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.40"
                     android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/wo2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.40"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/go2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.40"
+        android:visibility="gone"/>
  <TextView
      android:id="@+id/txt"
      android:layout_width="wrap_content"

@@ -28,11 +28,14 @@ public class DBHelper3 extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertUserByMethod(String image, String image2)  {
+    public long insertUserByMethod(String image, String image2,  String image3,  String image4)  {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserContract3.Users.KEY_IMAGE,image);
         values.put(UserContract3.Users.KEY_IMAGE2,image2);
+        values.put(UserContract3.Users.KEY_IMAGE3,image3);
+        values.put(UserContract3.Users.KEY_IMAGE4,image4);
+
         return db.insert(UserContract3.Users.TABLE_NAME,null,values);
     }
 
