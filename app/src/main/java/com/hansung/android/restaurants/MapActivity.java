@@ -66,19 +66,77 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.gps:
+               getLastLocation();
+
+             //  double x = mCurrentLocation.getLatitude();
+              // double y = mCurrentLocation.getLongitude();
+
+             //   TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+             //   TextView mResultText4 = (TextView) findViewById(R.id.textview4);
+
+             //   mResultText3.setText(String.format("[ %s ]",
+              //         mCurrentLocation.getLatitude()));
+
+              //  mResultText4.setText(String.format("[ %s]",
+
+              //          mCurrentLocation.getLongitude()));
+
+
+                return true;
+
+            case R.id.map_1km:
+
+
+
+
+            
+
+
+
+
+//
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-d onCreate(Bundle savedInstanceState) {
-        super.onCreatesavedInstanceState);
-        setContentView(R.layout.map)
+
+
+
+
+
+    final int REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION=0;
+    private FusedLocationProviderClient mFusedLocationClient;
+    Location mCurrentLocation;
+    private GoogleMap mGoogleMap;
+    String mResultText;
+    String input;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.map);
 
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View view) {
+                getaddress();
+
             }
-        });3(this);
-(SupportMapFragment) getSuppor
+        });
+        DbHelper = new DBHelper(this);
+        mDbHelper3 = new DBHelper3(this);
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
@@ -89,6 +147,7 @@ d onCreate(Bundle savedInstanceState) {
         if (!checkLocationPermissions()) {
             requestLocationPermissions(REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION);
         } else{
+
             getLastLocation();
         }
 
@@ -108,24 +167,52 @@ d onCreate(Bundle savedInstanceState) {
     private void requestLocationPermissions(int requestCode) {
         ActivityCompat.requestPermissions(
                 MapActivity.this,            // MainActivity 액티비티의 객체 인스턴스를 나타냄
-                new String[]{Manifest.permis
-    public void onRequestPer
-                        && grantResults[0] Toast.makeText(
-        }       } else {
-          MissingPermission")
-    private void LastLocation() {
-            public voi onSuccess(Location location) {
-                // Got last kown location. In some rare situations this can be null.
-                if (location != nullion;
-                    LatLng location1 =rker(1).
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},        // 요청할 권한 목록을 설정한 String 배열
+                requestCode    // 사용자 정의 int 상수. 권한 요청 결과를 받을 때
+        );
+    }
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String[] permissions,
+            int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLastLocation();
+                } else {
+                    Toast.makeText(this, "Permission required", Toast.LENGTH_SHORT);
+                }
+            }
+        }
+    }
+    @SuppressWarnings("MissingPermission")
+    private void getLastLocation() {
+        Task task = mFusedLocationClient.getLastLocation();       // Task<Location> 객체 반환
+        task.addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    mCurrentLocation = location;
+                    LatLng location1 = new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1,15));
+                    mGoogleMap.addMarker(
+                            new MarkerOptions().
+                                    position(location1).
                                     title(input)
                     );
-                    Toast.makeText(getApplicationContex(),
+                    Toast.makeText(getApplicationContext(),
                             "위도 "+mCurrentLocation.getLatitude()+"경도 "+mCurrentLocation.getLongitude(),
                             Toast.LENGTH_SHORT)
-                            .show()
+                            .show();
 
-ationContext(), mCurrentLocation.getLatitude() +  Toast.LENGTH_SHORT).show();
+
+                    //Toast.makeText(getApplicationContext(), mCurrentLocation.getLatitude() +  Toast.LENGTH_SHORT).show();
                     //updateUI();
                 } else
                     Toast.makeText(getApplicationContext(), "no_location_detected", Toast.LENGTH_SHORT).show();
@@ -139,27 +226,47 @@ ationContext(), mCurrentLocation.getLatitude() +  Toast.LENGTH_SHORT).show();
     //{
 
 
-        //double si = CmCurrentLocation.getLatitude();
-        //si 가 현재 위
+        //double si = mCurrentLocation.getLongitude();
+        //double bal = mCurrentLocation.getLatitude();
+        //si 가 현재 위도고 bal이 현재 경도임 이걸로 거리계산 해야함
 
-       // Location lc1= new Location("location 1 name");
-       // Locatio loc2 = new Location("location 2 name");
-etLatitude(mCurrentLocation.getLatitude());
+
+       // Location loc1= new Location("location 1 name");
+       // Location loc2 = new Location("location 2 name");
+
+        //loc1.setLatitude(mCurrentLocation.getLatitude());
        // loc1.setLongitude(mCurrentLocation.getLongitude());
 
         //------------여기에 DB의 맛집 위도경도 들가야함--------------//
         //loc2.setLatitude(locarion2 .getLatitude());
-       /
+       // loc2.setLongitude(locarion2 .getLongitude());
+
+
+
+       // return loc1 .distanceTo(loc2);
+   // }
 
 
 
 
 
-    public void o
-        mGoogleMapeToFirt();
+
+
+
+    @Override
+
+    public void onMapReady(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+
+        mGoogleMap.setOnMarkerClickListener(this);
+        Cursor cursor = DbHelper.getAllUsersBySQL();
+        cursor.moveToFirst();
+
 //        int z;
 
+
 //        for(z=0; z < cursor.getPosition(); z++){
+
         while (cursor.moveToNext()) {
             double x = cursor.getDouble(5);
             double y = cursor.getDouble(6);
@@ -206,7 +313,12 @@ public  boolean onMarkerClick(Marker marker){
 
     }
     private void getaddress() {
-     inputed
+     inputedit = (EditText) findViewById(R.id.edittext);
+        TextView mResultText = (TextView) findViewById(R.id.textview);
+        TextView mResultText2 = (TextView) findViewById(R.id.textview2);
+        TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+        TextView mResultText4 = (TextView) findViewById(R.id.textview4);
+        String input = inputedit.getText().toString();
 
 
 
@@ -218,7 +330,11 @@ public  boolean onMarkerClick(Marker marker){
                 Address bestResult = (Address) addresses.get(0);
 
                 mResultText.setText(String.format("[ %s  ]",
-                        bes
+                        bestResult.getLatitude()));
+
+                mResultText2.setText(String.format("[ %s ]",
+                        bestResult.getLongitude()));
+
                 mResultText3.setText(String.format("[ %s ]",
                         mCurrentLocation.getLatitude()));
 
@@ -238,20 +354,31 @@ public  boolean onMarkerClick(Marker marker){
                 );
 
             }
+        } catch (IOException e) {
+            Log.e(getClass().toString(), "Failed in using Geocoder.", e);
+            return;
+        }
     }
 
-    private void insertRecord() {extView) findViewById(R.id.textview);
+    private void insertRecord() {
+        inputedit = (EditText) findViewById(R.id.edittext);
+        TextView mResultText = (TextView) findViewById(R.id.textview);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
         TextView mResultText3 = (TextView) findViewById(R.id.textview3);
         TextView mResultText4 = (TextView) findViewById(R.id.textview4);
         String input = inputedit.getText().toString();
-this, Locale.KOREA);
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
             List<Address> addresses = geocoder.getFromLocationName(input,1);
             if (addresses.size() >0) {
                 Address address = addresses.get(0);
                 mResultText.setText(String.format("%s", address.getLatitude()));
                 mResultText2.setText(String.format("%s",address.getLongitude()));
-                mResultText3.setText(String.format("%s",mCurrentLocatddress.getLatitude(), address.getLongitude());
+                mResultText3.setText(String.format("%s",mCurrentLocation.getLatitude()));
+                mResultText4.setText(String.format("%s",mCurrentLocation.getLongitude()));
+
+                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
                 mGoogleMap.addMarker(
                         new MarkerOptions().
@@ -260,8 +387,17 @@ this, Locale.KOREA);
                 );
                 mGoogleMap.setOnMarkerClickListener(this);
             }
-cord Inserted", Toast.LENGTH_SHORT).show();
-        } else {d Inserted", Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            Log.e("LocationService", "Failed in using Geocoder",e);
+        }
+
+        long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString()
+        ,mResultText3.getText().toString(), mResultText4.getText().toString());
+        if (nOfRows > 0) {
+            Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No Record Inserted", Toast.LENGTH_SHORT).show();
         }
         //오류나면 data-data-databases 에서 db삭제하고 다시해보기
 
