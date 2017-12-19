@@ -362,7 +362,7 @@ public  boolean onMarkerClick(Marker marker){
 
     private void insertRecord() {
         inputedit = (EditText) findViewById(R.id.edittext);
-        TextView mResultText = (TextView) findViewById(R.id.textview);
+        TextView mResultText = (TextView) findViewById(R.id.textview3);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
         TextView mResultText3 = (TextView) findViewById(R.id.textview3);
         TextView mResultText4 = (TextView) findViewById(R.id.textview4);
