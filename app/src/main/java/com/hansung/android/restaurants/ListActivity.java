@@ -1,6 +1,7 @@
 package com.hansung.android.restaurants;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,12 +23,22 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list);
-        mDbHelper2 = new DBHelper2(this);
-      //  viewAllToListText();
+        setContentView(R.layout.activity_details);
 
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
+
+        MenuFragment details = new MenuFragment();
+        details.setSelection(getIntent().getIntExtra("index", -1));
+        getSupportFragmentManager().beginTransaction().replace(R.id.details, details).commit();
+
+        /*
+
+        mDbHelper2 = new DBHelper2(this);
         //리스트뷰 온클릭 액티비티에 데이터베이스 불러옴
         Cursor cursor = mDbHelper2.getAllUsersBySQL();
         StringBuffer buffer = new StringBuffer();
@@ -37,11 +48,11 @@ public class ListActivity extends AppCompatActivity {
             buffer.append(cursor.getString(2) + " \n");
             buffer.append(cursor.getString(3) + " \n");
             CameraImage.setImageURI(Uri.parse(cursor.getString(4)));
-
         }
         TextView result = (TextView) findViewById(R.id.textView1);
         result.setText(buffer);
         buffer.setLength(0);
-    }
 
+*/
+    }
 }

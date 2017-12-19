@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <fragment
-        android:name="com.hansung.android.restaurants.ListFragment"
-        android:id="@+id/titles"
+        android:name="com.hansung.android.restaurants.RestaurantFragment"
+        android:id="@+id/fragment"
         android:layout_weight="1"
         android:layout_width="0px"
         android:layout_height="match_parent" />
 
     <FrameLayout
-        android:id="@+id/details"
+        android:id="@+id/fragment2"
         android:layout_weight="1"
         android:layout_width="0px"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

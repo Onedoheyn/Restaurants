@@ -204,7 +204,7 @@ public class InsertActivity extends AppCompatActivity {
         if (cursor.moveToLast()) {
             buffer.append(cursor.getString(1) + " \n");
         }
-       wo.setText(buffer);
+        wo.setText(buffer);
     }
 
     private void viewAllToTextView3() {

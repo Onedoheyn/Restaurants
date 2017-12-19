@@ -37,7 +37,7 @@ import java.util.Date;
  * Created by LeeChanHee on 2017-11-14.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RestaurantFragment.OnTitleSelectedListener{
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
     ImageView image;
@@ -47,70 +47,43 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.insertresult);
-
-
-        mDbHelper = new DBHelper(this);
-        viewAllToTextView1();
-        mDbHelper2 = new DBHelper2(this);
-        //viewAllToListView();
-
-        if (getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE) {
-            finish();
-            return;
-        }
-//프래그먼트
-        ListFragment details = new ListFragment();
-
-
-
-        Button btn = (Button) findViewById(R.id.buttonCallActivity);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-000-0000"));
-                startActivity(implicit_intent);
-            }
-        });
-
-        final Cursor cursor = mDbHelper2.getAllUsersByMethod2();
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
-                R.layout.row, cursor, new String[]{
-                UserContract2.Users2.KEY_NAME,
-                UserContract2.Users2.KEY_ADDRESS,
-                UserContract2.Users2.KEY_IMAGE},
-                new int[]{R.id.textView1, R.id.textView2,R.id.imageView1}, 0);
-
-        ListView lv = (ListView) findViewById(R.id.listview);
-        lv.setAdapter(adapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-
-                Intent intent = new Intent(
-                        getApplicationContext(),
-                        ListActivity.class);
-
-                startActivity(intent);
-            }
-
-        });
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        setContentView(R.layout.fragment_restaurant);
     }
 
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-//액션바
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -124,24 +97,89 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void viewAllToTextView1() {
-        TextView result = (TextView) findViewById(R.id.text1);
-        ImageView CameraImage = (ImageView)findViewById(R.id.CM);
-        Cursor cursor = mDbHelper.getAllUsersBySQL();
-        StringBuffer buffer = new StringBuffer();
-        if (cursor.moveToLast()) {
-            buffer.append(cursor.getString(1) + " \n");
-            buffer.append(cursor.getString(2) + " \n");
-            buffer.append(cursor.getString(3) + " \n");
-            CameraImage.setImageURI(Uri.parse(cursor.getString(4)));
 
+//        mDbHelper = new DBHelper(this);
+//        viewAllToTextView1();
+//        mDbHelper2 = new DBHelper2(this);
+//        //viewAllToListView();
+//
+//        if (getResources().getConfiguration().orientation
+//                == Configuration.ORIENTATION_LANDSCAPE) {
+//            finish();
+//            return;
+//        }
+//
+//        Button btn = (Button) findViewById(R.id.buttonCallActivity);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-000-0000"));
+//                startActivity(implicit_intent);
+//            }
+//        });
+//
+//        final Cursor cursor = mDbHelper2.getAllUsersByMethod2();
+//
+//        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
+//                R.layout.row, cursor, new String[]{
+//                UserContract2.Users2.KEY_NAME,
+//                UserContract2.Users2.KEY_ADDRESS,
+//                UserContract2.Users2.KEY_IMAGE},
+//                new int[]{R.id.textView1, R.id.textView2,R.id.imageView1}, 0);
+//
+//        ListView lv = (ListView) findViewById(R.id.listview);
+//        lv.setAdapter(adapter);
+//
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//
+//
+//                Intent intent = new Intent(
+//                        getApplicationContext(),
+//                        ListActivity.class);
+//
+//                startActivity(intent);
+//            }
+//
+//        });
+//        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//    }
 
+    @Override
+    public void onTitleSelected(int i) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //DetailsFragment detailsFragment = new DetailsFragment();
+            MenuFragment detailfragment = new MenuFragment();
+            detailfragment.setSelection(i);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment2, detailfragment).commit();
+        }
+        else {
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("index", i);
+            startActivity(intent);
 
         }
-
-        result.setText(buffer);
-        buffer.setLength(0);
     }
+//
+//    private void viewAllToTextView1() {
+//        TextView result = (TextView) findViewById(R.id.text1);
+//        ImageView CameraImage = (ImageView)findViewById(R.id.CM);
+//        Cursor cursor = mDbHelper.getAllUsersBySQL();
+//        StringBuffer buffer = new StringBuffer();
+//        if (cursor.moveToLast()) {
+//            buffer.append(cursor.getString(1) + " \n");
+//            buffer.append(cursor.getString(2) + " \n");
+//            buffer.append(cursor.getString(3) + " \n");
+//            CameraImage.setImageURI(Uri.parse(cursor.getString(4)));
+//
+//
+//
+//        }
+//
+//        result.setText(buffer);
+//        buffer.setLength(0);
+//    }
 
 }
 
