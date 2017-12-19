@@ -30,7 +30,7 @@
         android:layout_height="100dp"
         android:layout_gravity="bottom|center_horizontal"
 
-        android:src="@drawable/rocket"/>
+     />
 
 
 </FrameLayout>

@@ -4,6 +4,6 @@
     <item android:drawable ="@drawable/countdown3" android:duration="500" />
     <item android:drawable="@drawable/countdown2" android:duration="500" />
     <item android:drawable="@drawable/countdown1" android:duration="500" />
-    <item android:drawable ="@drawable/countdown0" android:duration="500" />
-    <item android:drawable ="@drawable/countdown" android:duration="500" />
+    <item android:drawable="@drawable/countdown" android:duration="500" />
+
 </animation-list>

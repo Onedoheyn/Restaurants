@@ -37,7 +37,7 @@ import android.animation.Animator;
  mFrame = (FrameLayout)findViewById(R.id.animation);
  mCountDown = (ImageView) findViewById(R.id.countdown);
  mFirework = (ImageView) findViewById(R.id.fire);
- mRocket = (ImageView) findViewById(R.id.rocket);
+ //mRocket = (ImageView) findViewById(R.id.rocket);
 
 
  }
@@ -57,7 +57,7 @@ import android.animation.Animator;
  /**
   * 아래 4가지 startRocket 애니메이션 중에 하나를 선택하여 테스트해 보세요.
  */
-        startRocketTweenAnimation();
+    //    startRocketTweenAnimation();
 //      startRocketObjectPropertyAnimation();
 //      startRocketPropertyAnimationByXML();
 //      startRocketValuePropertyAnimation();
@@ -76,70 +76,6 @@ private void startFireTweenAnimation() {
         fire_anim.setAnimationListener(animationListener);
         }
 
-private void startRocketTweenAnimation() {
-        Animation rocket_anim = AnimationUtils.loadAnimation(this, R.anim.rocket);
-        mRocket.startAnimation(rocket_anim);
-        }
-
-
-
-private void startRocketObjectPropertyAnimation() {
-        ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(mRocket, "translationY",
-        0, -mScreenHeight);
-        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(mRocket,"scaleX",1,0.1f);
-        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(mRocket,"scaleY",1,0.1f);
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(positionAnimator,scaleXAnimator,scaleYAnimator);
-
-        animatorSet.setDuration(2000);
-        animatorSet.setStartDelay(2000);
-        animatorSet.start();
-        animatorSet.addListener(animatorListener);
-
-        }
-
-private void startRocketPropertyAnimationByXML() {
-        AnimatorSet rocketDogSet = new AnimatorSet();
-
-        AnimatorSet rocketAnimator = (AnimatorSet) AnimatorInflater.loadAnimator(this,R.animator.rocket);
-        rocketAnimator.setTarget(mRocket);
-
-        rocketAnimator.setStartDelay(2000);
-        rocketAnimator.start();
-        rocketAnimator.addListener(animatorListener);
-
-
-        }
-
-private void startRocketValuePropertyAnimation() {
-        ValueAnimator positionAnimator = ValueAnimator.ofFloat(0,-mScreenHeight);
-        positionAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-public void onAnimationUpdate(ValueAnimator valueAnimator){
-        float value = (float) valueAnimator.getAnimatedValue();
-        mRocket.setTranslationY(value);
-        }
-        });
-
-        ValueAnimator scaleAnimator = ValueAnimator.ofFloat(1.0f, 0.1f);
-        scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-@Override
-public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        float value = (float) valueAnimator.getAnimatedValue();
-        mRocket.setScaleX(value);
-        mRocket.setScaleY(value);
-        }
-        });
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-        animatorSet.play(positionAnimator).with(scaleAnimator);
-        animatorSet.setStartDelay(2000);
-        animatorSet.setDuration(2000);
-        animatorSet.start();
-        animatorSet.addListener(animatorListener);
-
-        }
 
         Animation.AnimationListener animationListener = new Animation.AnimationListener() {
 @Override

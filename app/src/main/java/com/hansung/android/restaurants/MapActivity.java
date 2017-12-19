@@ -237,18 +237,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
                                 title(cursor.getString(2))
                                                    );
-                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
+
                                }
                        }
-
     }
 
+
     private void getDistance2() {
-
         Location loc1 = new Location("location 1 name");
-
         loc1.setLatitude(mCurrentLocation.getLatitude());
         loc1.setLongitude(mCurrentLocation.getLongitude());
+
         mGoogleMap.clear();
 
         Cursor cursor = DbHelper.getAllUsersBySQL();
@@ -275,7 +274,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
                                 title(cursor.getString(2))
                 );
-                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
+
             }
         }
 
@@ -313,7 +312,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
                                 title(cursor.getString(2))
                 );
-                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
             }
         }
 
