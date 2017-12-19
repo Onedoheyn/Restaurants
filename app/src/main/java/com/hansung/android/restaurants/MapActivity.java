@@ -53,6 +53,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private DBHelper DbHelper;
     private DBHelper3 mDbHelper3;
+    private Location mLastLocation;
     double DIS;
     double distance = 0;
     EditText inputedit;
@@ -76,16 +77,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             case R.id.map_1km:
                 item.setChecked(true);
+                getDistance1();
+                return true;
 
-                if(distance<1000)
-                {
-                    mGoogleMap.clear();
-                }
-                getaddress();
+            case R.id.map_2km:
+                item.setChecked(true);
+                getDistance2();
+                return true;
+
+            case R.id.map_3km:
+                item.setChecked(true);
+                getDistance3();
                 return true;
 
 
-//
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -96,7 +103,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationClient;
     Location mCurrentLocation;
     private GoogleMap mGoogleMap;
-    String mResultText;
     String input;
 
     @Override
@@ -127,7 +133,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (!checkLocationPermissions()) {
             requestLocationPermissions(REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION);
         } else {
-
             getLastLocation();
         }
 
@@ -198,46 +203,124 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
     }
-    public double getDistance_1km() {
 
-        Location loc1 = new Location("location 1 name");
 
-        loc1.setLatitude(mCurrentLocation.getLatitude());
-        loc1.setLongitude(mCurrentLocation.getLongitude());
+   private void getDistance1() {
 
-        Cursor cursor = DbHelper.getAllUsersBySQL();
-        cursor.moveToFirst(); // 처음으로 이동
+       Location loc1 = new Location("location 1 name");
+
+       loc1.setLatitude(mCurrentLocation.getLatitude());
+       loc1.setLongitude(mCurrentLocation.getLongitude());
+       mGoogleMap.clear();
+
+       Cursor cursor = DbHelper.getAllUsersBySQL();
 
         while (cursor.moveToNext()) { // 위도랑 경도 찾음
             double x = cursor.getDouble(5);
             double y = cursor.getDouble(6);
 
-            Location loc2 = new Location("location 2 name");
-            loc2.setLatitude(x);
-            loc2.setLongitude(y);
+            Location location4 = new Location(" ");
+            location4.setLatitude(x);
+            location4.setLongitude(y);
+            distance = loc1.distanceTo(location4);
 
-            distance = loc1.distanceTo(loc2); // 거리 구함(단위:미터)
+            if(distance<1000){
+                LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
+                mGoogleMap.addMarker( new MarkerOptions().
+                        position(current_markLocate).
+                        title(cursor.getString(2)));
 
+                LatLng markLocate = new LatLng(x, y);
+                mGoogleMap.addMarker(
+                        new MarkerOptions().
+                                position(markLocate).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
+                                title(cursor.getString(2))
+                                                   );
+                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
+                               }
+                       }
 
-            // meter = Double.toString(distance);
+    }
 
-            // Log.i("거리", String.valueOf(distance));
-            // Toast.makeText(this, "거리 :  "+distance, Toast.LENGTH_SHORT).show();
-/*
-            if(distance>1000)
-            {
+    private void getDistance2() {
 
-                MarkerOptions makerOptions = new MarkerOptions();
-                makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
-                        .position(new LatLng(x, y))
-                        .visible(false);
+        Location loc1 = new Location("location 1 name");
+
+        loc1.setLatitude(mCurrentLocation.getLatitude());
+        loc1.setLongitude(mCurrentLocation.getLongitude());
+        mGoogleMap.clear();
+
+        Cursor cursor = DbHelper.getAllUsersBySQL();
+
+        while (cursor.moveToNext()) { // 위도랑 경도 찾음
+            double x = cursor.getDouble(5);
+            double y = cursor.getDouble(6);
+
+            Location location4 = new Location(" ");
+            location4.setLatitude(x);
+            location4.setLongitude(y);
+            distance = loc1.distanceTo(location4);
+
+            if(distance<2000){
+                LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
+                mGoogleMap.addMarker( new MarkerOptions().
+                        position(current_markLocate).
+                        title(cursor.getString(2)));
+
+                LatLng markLocate = new LatLng(x, y);
+                mGoogleMap.addMarker(
+                        new MarkerOptions().
+                                position(markLocate).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
+                                title(cursor.getString(2))
+                );
                 Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
             }
-            */
         }
 
-        return distance;
     }
+
+    private void getDistance3() {
+
+        Location loc1 = new Location("location 1 name");
+
+        loc1.setLatitude(mCurrentLocation.getLatitude());
+        loc1.setLongitude(mCurrentLocation.getLongitude());
+        mGoogleMap.clear();
+
+        Cursor cursor = DbHelper.getAllUsersBySQL();
+
+        while (cursor.moveToNext()) { // 위도랑 경도 찾음
+            double x = cursor.getDouble(5);
+            double y = cursor.getDouble(6);
+
+            Location location4 = new Location(" ");
+            location4.setLatitude(x);
+            location4.setLongitude(y);
+            distance = loc1.distanceTo(location4);
+
+            if(distance<3000){
+                LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
+                mGoogleMap.addMarker( new MarkerOptions().
+                        position(current_markLocate).
+                        title(cursor.getString(2)));
+
+                LatLng markLocate = new LatLng(x, y);
+                mGoogleMap.addMarker(
+                        new MarkerOptions().
+                                position(markLocate).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
+                                title(cursor.getString(2))
+                );
+                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+
+
 
 
 
