@@ -69,30 +69,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         switch (item.getItemId()) {
 
             case R.id.gps:
-               getLastLocation();
+                getLastLocation();
 
-             //  double x = mCurrentLocation.getLatitude();
-              // double y = mCurrentLocation.getLongitude();
+                //  double x = mCurrentLocation.getLatitude();
+                // double y = mCurrentLocation.getLongitude();
 
-             //   TextView mResultText3 = (TextView) findViewById(R.id.textview3);
-             //   TextView mResultText4 = (TextView) findViewById(R.id.textview4);
+                //   TextView mResultText3 = (TextView) findViewById(R.id.textview3);
+                //   TextView mResultText4 = (TextView) findViewById(R.id.textview4);
 
-             //   mResultText3.setText(String.format("[ %s ]",
-              //         mCurrentLocation.getLatitude()));
+                //   mResultText3.setText(String.format("[ %s ]",
+                //         mCurrentLocation.getLatitude()));
 
-              //  mResultText4.setText(String.format("[ %s]",
+                //  mResultText4.setText(String.format("[ %s]",
 
-              //          mCurrentLocation.getLongitude()));
+                //          mCurrentLocation.getLongitude()));
 
 
                 return true;
 
             case R.id.map_1km:
+                item.setChecked(true);
 
 
 
 
-            
+
+
+
+
 
 
 
@@ -153,7 +157,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-        }
+    }
 
 
 
@@ -222,29 +226,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-   // public double getGunWoo()
+    // public double getGunWoo()
     //{
 
 
-        //double si = mCurrentLocation.getLongitude();
-        //double bal = mCurrentLocation.getLatitude();
-        //si 가 현재 위도고 bal이 현재 경도임 이걸로 거리계산 해야함
+    //double si = mCurrentLocation.getLongitude();
+    //double bal = mCurrentLocation.getLatitude();
+    //si 가 현재 위도고 bal이 현재 경도임 이걸로 거리계산 해야함
 
 
-       // Location loc1= new Location("location 1 name");
-       // Location loc2 = new Location("location 2 name");
+    // Location loc1= new Location("location 1 name");
+    // Location loc2 = new Location("location 2 name");
 
-        //loc1.setLatitude(mCurrentLocation.getLatitude());
-       // loc1.setLongitude(mCurrentLocation.getLongitude());
+    //loc1.setLatitude(mCurrentLocation.getLatitude());
+    // loc1.setLongitude(mCurrentLocation.getLongitude());
 
-        //------------여기에 DB의 맛집 위도경도 들가야함--------------//
-        //loc2.setLatitude(locarion2 .getLatitude());
-       // loc2.setLongitude(locarion2 .getLongitude());
+    //------------여기에 DB의 맛집 위도경도 들가야함--------------//
+    //loc2.setLatitude(locarion2 .getLatitude());
+    // loc2.setLongitude(locarion2 .getLongitude());
 
 
 
-       // return loc1 .distanceTo(loc2);
-   // }
+    // return loc1 .distanceTo(loc2);
+    // }
 
 
 
@@ -283,7 +287,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-public  boolean onMarkerClick(Marker marker){
+    public  boolean onMarkerClick(Marker marker){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("등록");
@@ -313,7 +317,7 @@ public  boolean onMarkerClick(Marker marker){
 
     }
     private void getaddress() {
-     inputedit = (EditText) findViewById(R.id.edittext);
+        inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
         TextView mResultText3 = (TextView) findViewById(R.id.textview3);
@@ -393,7 +397,7 @@ public  boolean onMarkerClick(Marker marker){
         }
 
         long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString()
-        ,mResultText3.getText().toString(), mResultText4.getText().toString());
+                ,mResultText3.getText().toString(), mResultText4.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
@@ -402,5 +406,3 @@ public  boolean onMarkerClick(Marker marker){
         //오류나면 data-data-databases 에서 db삭제하고 다시해보기
 
     }
-
-}
