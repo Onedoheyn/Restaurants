@@ -49,7 +49,7 @@ import java.util.Locale;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener{
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
     private DBHelper DbHelper;
     private DBHelper3 mDbHelper3;
@@ -57,6 +57,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     double distance = 0;
     EditText inputedit;
     final int REQUEST_CODE_READ_CONTACTS = 1;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -91,16 +92,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 item.setChecked(true);
 
 
-
-
-
-
-
-
-
-
-
-
 //
             default:
                 return super.onOptionsItemSelected(item);
@@ -108,11 +99,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-
-
-
-
-    final int REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION=0;
+    final int REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION = 0;
     private FusedLocationProviderClient mFusedLocationClient;
     Location mCurrentLocation;
     private GoogleMap mGoogleMap;
@@ -144,22 +131,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-
-
-
-
         if (!checkLocationPermissions()) {
             requestLocationPermissions(REQUEST_PERMISSIONS_FOR_LAST_KNOWN_LOCATION);
-        } else{
+        } else {
 
             getLastLocation();
         }
 
 
-
     }
-
-
 
 
     private boolean checkLocationPermissions() {
@@ -175,6 +155,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 requestCode    // 사용자 정의 int 상수. 권한 요청 결과를 받을 때
         );
     }
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
@@ -194,6 +175,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
+
     @SuppressWarnings("MissingPermission")
     private void getLastLocation() {
         Task task = mFusedLocationClient.getLastLocation();       // Task<Location> 객체 반환
@@ -203,15 +185,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // Got last known location. In some rare situations this can be null.
                 if (location != null) {
                     mCurrentLocation = location;
-                    LatLng location1 = new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1,15));
+                    LatLng location1 = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1, 15));
                     mGoogleMap.addMarker(
                             new MarkerOptions().
                                     position(location1).
                                     title(input)
                     );
                     Toast.makeText(getApplicationContext(),
-                            "위도 "+mCurrentLocation.getLatitude()+"경도 "+mCurrentLocation.getLongitude(),
+                            "위도 " + mCurrentLocation.getLatitude() + "경도 " + mCurrentLocation.getLongitude(),
                             Toast.LENGTH_SHORT)
                             .show();
 
@@ -223,7 +205,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
     }
-
 
 
     // public double getGunWoo()
@@ -246,15 +227,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     // loc2.setLongitude(locarion2 .getLongitude());
 
 
-
     // return loc1 .distanceTo(loc2);
     // }
-
-
-
-
-
-
 
 
     @Override
@@ -287,7 +261,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public  boolean onMarkerClick(Marker marker){
+    public boolean onMarkerClick(Marker marker) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("등록");
@@ -298,7 +272,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
-
 
 
                 insertRecord();
@@ -313,9 +286,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
         alert.show();
-        return  true;
+        return true;
 
     }
+
     private void getaddress() {
         inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
@@ -323,8 +297,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         TextView mResultText3 = (TextView) findViewById(R.id.textview3);
         TextView mResultText4 = (TextView) findViewById(R.id.textview4);
         String input = inputedit.getText().toString();
-
-
 
 
         try {
@@ -374,13 +346,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         try {
             Geocoder geocoder = new Geocoder(this, Locale.KOREA);
-            List<Address> addresses = geocoder.getFromLocationName(input,1);
-            if (addresses.size() >0) {
+            List<Address> addresses = geocoder.getFromLocationName(input, 1);
+            if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 mResultText.setText(String.format("%s", address.getLatitude()));
-                mResultText2.setText(String.format("%s",address.getLongitude()));
-                mResultText3.setText(String.format("%s",mCurrentLocation.getLatitude()));
-                mResultText4.setText(String.format("%s",mCurrentLocation.getLongitude()));
+                mResultText2.setText(String.format("%s", address.getLongitude()));
+                mResultText3.setText(String.format("%s", mCurrentLocation.getLatitude()));
+                mResultText4.setText(String.format("%s", mCurrentLocation.getLongitude()));
 
                 LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
@@ -393,11 +365,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
 
         } catch (IOException e) {
-            Log.e("LocationService", "Failed in using Geocoder",e);
+            Log.e("LocationService", "Failed in using Geocoder", e);
         }
 
         long nOfRows = mDbHelper3.insertUserByMethod(mResultText.getText().toString(), mResultText2.getText().toString()
-                ,mResultText3.getText().toString(), mResultText4.getText().toString());
+                , mResultText3.getText().toString(), mResultText4.getText().toString());
         if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
         } else {
@@ -406,3 +378,4 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         //오류나면 data-data-databases 에서 db삭제하고 다시해보기
 
     }
+}
