@@ -72,6 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             case R.id.gps:
                 getLastLocation();
+                GPSGPS();
 
                 return true;
 
@@ -317,19 +318,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
-
-
-
-
-
-
-
-    @Override
-
-    public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
-
+    private void GPSGPS(){
         mGoogleMap.setOnMarkerClickListener(this);
         Cursor cursor = DbHelper.getAllUsersBySQL();
         cursor.moveToFirst();
@@ -348,6 +337,39 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             // 2. 마커 생성 (마커를 나타냄)
             mGoogleMap.addMarker(makerOptions);
         }
+    }
+
+
+
+
+
+
+
+
+
+    @Override
+
+    public void onMapReady(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+
+//        mGoogleMap.setOnMarkerClickListener(this);
+//        Cursor cursor = DbHelper.getAllUsersBySQL();
+//        cursor.moveToFirst();
+//
+//
+//        while (cursor.moveToNext()) {
+//            double x = cursor.getDouble(5);
+//            double y = cursor.getDouble(6);
+//
+//            MarkerOptions makerOptions = new MarkerOptions();
+//            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+//                    .position(new LatLng(x, y))
+//                    .title("마커") // 타이틀.
+//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//
+//            // 2. 마커 생성 (마커를 나타냄)
+//            mGoogleMap.addMarker(makerOptions);
+//        }
     }
 
     @Override
