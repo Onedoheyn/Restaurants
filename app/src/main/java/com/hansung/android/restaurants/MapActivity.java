@@ -72,24 +72,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.gps:
                 getLastLocation();
 
-                //  double x = mCurrentLocation.getLatitude();
-                // double y = mCurrentLocation.getLongitude();
-
-                //   TextView mResultText3 = (TextView) findViewById(R.id.textview3);
-                //   TextView mResultText4 = (TextView) findViewById(R.id.textview4);
-
-                //   mResultText3.setText(String.format("[ %s ]",
-                //         mCurrentLocation.getLatitude()));
-
-                //  mResultText4.setText(String.format("[ %s]",
-
-                //          mCurrentLocation.getLongitude()));
-
-
                 return true;
 
             case R.id.map_1km:
                 item.setChecked(true);
+
+                if(distance<1000)
+                {
+                    mGoogleMap.clear();
+                }
+                getaddress();
+                return true;
 
 
 //
@@ -205,30 +198,50 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
     }
+    public double getDistance_1km() {
+
+        Location loc1 = new Location("location 1 name");
+
+        loc1.setLatitude(mCurrentLocation.getLatitude());
+        loc1.setLongitude(mCurrentLocation.getLongitude());
+
+        Cursor cursor = DbHelper.getAllUsersBySQL();
+        cursor.moveToFirst(); // 처음으로 이동
+
+        while (cursor.moveToNext()) { // 위도랑 경도 찾음
+            double x = cursor.getDouble(5);
+            double y = cursor.getDouble(6);
+
+            Location loc2 = new Location("location 2 name");
+            loc2.setLatitude(x);
+            loc2.setLongitude(y);
+
+            distance = loc1.distanceTo(loc2); // 거리 구함(단위:미터)
 
 
-    // public double getGunWoo()
-    //{
+            // meter = Double.toString(distance);
+
+            // Log.i("거리", String.valueOf(distance));
+            // Toast.makeText(this, "거리 :  "+distance, Toast.LENGTH_SHORT).show();
+/*
+            if(distance>1000)
+            {
+
+                MarkerOptions makerOptions = new MarkerOptions();
+                makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+                        .position(new LatLng(x, y))
+                        .visible(false);
+                Toast.makeText(this, "출력 :  "+distance, Toast.LENGTH_SHORT).show();
+            }
+            */
+        }
+
+        return distance;
+    }
 
 
-    //double si = mCurrentLocation.getLongitude();
-    //double bal = mCurrentLocation.getLatitude();
-    //si 가 현재 위도고 bal이 현재 경도임 이걸로 거리계산 해야함
 
 
-    // Location loc1= new Location("location 1 name");
-    // Location loc2 = new Location("location 2 name");
-
-    //loc1.setLatitude(mCurrentLocation.getLatitude());
-    // loc1.setLongitude(mCurrentLocation.getLongitude());
-
-    //------------여기에 DB의 맛집 위도경도 들가야함--------------//
-    //loc2.setLatitude(locarion2 .getLatitude());
-    // loc2.setLongitude(locarion2 .getLongitude());
-
-
-    // return loc1 .distanceTo(loc2);
-    // }
 
 
     @Override
@@ -240,10 +253,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Cursor cursor = DbHelper.getAllUsersBySQL();
         cursor.moveToFirst();
 
-//        int z;
-
-
-//        for(z=0; z < cursor.getPosition(); z++){
 
         while (cursor.moveToNext()) {
             double x = cursor.getDouble(5);
