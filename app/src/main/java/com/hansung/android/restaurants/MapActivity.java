@@ -65,7 +65,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         inflater.inflate(R.menu.main_menu2, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+//---- switch case 문으로 GPS버튼, 1,2,3 km 버튼 눌러질때 --//
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -149,9 +149,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void requestLocationPermissions(int requestCode) {
         ActivityCompat.requestPermissions(
-                MapActivity.this,            // MainActivity 액티비티의 객체 인스턴스를 나타냄
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},        // 요청할 권한 목록을 설정한 String 배열
-                requestCode    // 사용자 정의 int 상수. 권한 요청 결과를 받을 때
+                MapActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                requestCode
         );
     }
 
@@ -177,7 +177,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @SuppressWarnings("MissingPermission")
     private void getLastLocation() {
-        Task task = mFusedLocationClient.getLastLocation();       // Task<Location> 객체 반환
+        Task task = mFusedLocationClient.getLastLocation();       // Task<Location> 객체 반환함
         task.addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -195,6 +195,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             "위도 " + mCurrentLocation.getLatitude() + "경도 " + mCurrentLocation.getLongitude(),
                             Toast.LENGTH_SHORT)
                             .show();
+                    //위도 경도를 토스트 메세지로 띄워줌
 
 
                     //Toast.makeText(getApplicationContext(), mCurrentLocation.getLatitude() +  Toast.LENGTH_SHORT).show();
@@ -206,30 +207,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-   private void getDistance1() {
+   private void getDistance1() { // 1km 이내
 
        Location loc1 = new Location("location 1 name");
 
-       loc1.setLatitude(mCurrentLocation.getLatitude());
-       loc1.setLongitude(mCurrentLocation.getLongitude());
+       loc1.setLatitude(mCurrentLocation.getLatitude());// 현재위치의 위도 설정
+       loc1.setLongitude(mCurrentLocation.getLongitude());// 현재위치 경도 설정
        mGoogleMap.clear();
 
-       Cursor cursor = DbHelper.getAllUsersBySQL();
+       Cursor cursor = DbHelper.getAllUsersBySQL(); //
 
-        while (cursor.moveToNext()) { // 위도랑 경도 찾음
+        while (cursor.moveToNext()) { // 등록된 맛집의 위도랑 경도 찾음
             double x = cursor.getDouble(5);
             double y = cursor.getDouble(6);
 
             Location location4 = new Location(" ");
-            location4.setLatitude(x);
-            location4.setLongitude(y);
+            location4.setLatitude(x); // 데이터베이스 안의 맛집 위도
+            location4.setLongitude(y); // 데이터베이스 안의 맛집 경도
             distance = loc1.distanceTo(location4);
 
-            if(distance<1000){
+            if(distance<1000){ //distance가 1km 이내일 때
                 LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
                 mGoogleMap.addMarker( new MarkerOptions().
                         position(current_markLocate).
                         title(cursor.getString(2)));
+                // current_markLocage 안에 현 위치를 저장하고 마커 뜨게 함
 
                 LatLng markLocate = new LatLng(x, y);
                 mGoogleMap.addMarker(
@@ -238,6 +240,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
                                 title(cursor.getString(2))
                                                    );
+                // 데이터베이스 안의 맛집 위치를 markLocate에 저장하고 범위 안에 있으면 마커를 찍게 함
 
                                }
                        }
@@ -318,13 +321,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void getDistance4() {
+    private void getDistance4() { // GPS 버튼 누르면 등록된 맛집을 뜨게 하는 코드
 
         Location loc1 = new Location("location 1 name");
 
-        loc1.setLatitude(mCurrentLocation.getLatitude());
+        loc1.setLatitude(mCurrentLocation.getLatitude());// 현재 위치의 위도 경도 설정
         loc1.setLongitude(mCurrentLocation.getLongitude());
-        mGoogleMap.clear();
+        mGoogleMap.clear(); // 마커 다 지움
 
         Cursor cursor = DbHelper.getAllUsersBySQL();
 
@@ -341,7 +344,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
                 mGoogleMap.addMarker( new MarkerOptions().
                         position(current_markLocate).
-                        title(cursor.getString(2)));
+                        title(cursor.getString(2))); // title은 마커 눌렀읗 시 위에 뜨는 내용
+
 
                 LatLng markLocate = new LatLng(x, y);
                 mGoogleMap.addMarker(
@@ -412,7 +416,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(Marker marker) { // 마커 클릭시 발생하는 이벤트
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("등록");
@@ -423,6 +427,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
+                // 등록을 누르면 InsertActivity로 넘어감(맛집 등록하는 액티비티)
 
 
                 insertRecord();
@@ -441,7 +446,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void getaddress() {
+    private void getaddress() { // Result에 있는 4가지 위도 경도를 표시
         inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
@@ -487,7 +492,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void insertRecord() {
+    private void insertRecord() { // Result에 뜬 위도경도들을 DB3에 저장하는 코드
         inputedit = (EditText) findViewById(R.id.edittext);
         TextView mResultText = (TextView) findViewById(R.id.textview);
         TextView mResultText2 = (TextView) findViewById(R.id.textview2);
