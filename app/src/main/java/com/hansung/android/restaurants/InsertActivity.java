@@ -63,6 +63,7 @@ public class InsertActivity extends AppCompatActivity {
     EditText mAddress;
     EditText mPhone;
 
+    TextView txt_next;
 
     private DBHelper mDbHelper;
     private DBHelper3 mDbHelper3;
@@ -93,14 +94,18 @@ public class InsertActivity extends AppCompatActivity {
         });
 
 
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+
         mName = (EditText) findViewById(R.id.editText1);
         mAddress = (EditText) findViewById(R.id.editText2);
         mPhone = (EditText) findViewById(R.id.editText3);
 
         mDbHelper = new DBHelper(this);
         mDbHelper3 = new DBHelper3(this);
-
-
+//----------------입력한 주소스트링을 입력창으로 인텐트로 넘겨줌 -------------------------------
+        txt_next = (TextView)findViewById(R.id.editText2);
+        txt_next.setText(name);
 
         // DB3의 내용 보여줌 (Edittext에)
         viewAllToTextView2();

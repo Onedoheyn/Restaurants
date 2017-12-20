@@ -394,8 +394,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-
         mGoogleMap.setOnMarkerClickListener(this);
+
+
 //        Cursor cursor = DbHelper.getAllUsersBySQL();
 //        cursor.moveToFirst();
 //
@@ -428,10 +429,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 Intent intent = new Intent(getApplicationContext(), InsertActivity.class);
                 // 등록을 누르면 InsertActivity로 넘어감(맛집 등록하는 액티비티)
-
-
+                intent.putExtra("name",inputedit.getText().toString());
                 insertRecord();
-
                 startActivity(intent);
             }
         });
