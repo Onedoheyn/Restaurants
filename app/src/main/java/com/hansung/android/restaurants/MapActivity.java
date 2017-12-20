@@ -319,7 +319,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void getDistance4() {
-        mGoogleMap.setOnMarkerClickListener(this);
+
         Location loc1 = new Location("location 1 name");
 
         loc1.setLatitude(mCurrentLocation.getLatitude());
@@ -337,7 +337,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             location4.setLongitude(y);
             distance = loc1.distanceTo(location4);
 
-            if(distance<99999999){
+            if(distance<100000000){
                 LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
                 mGoogleMap.addMarker( new MarkerOptions().
                         position(current_markLocate).
@@ -391,7 +391,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
-//        mGoogleMap.setOnMarkerClickListener(this);
+        mGoogleMap.setOnMarkerClickListener(this);
 //        Cursor cursor = DbHelper.getAllUsersBySQL();
 //        cursor.moveToFirst();
 //
@@ -408,7 +408,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //
 //            // 2. 마커 생성 (마커를 나타냄)
 //            mGoogleMap.addMarker(makerOptions);
-//        }
+        
     }
 
     @Override
