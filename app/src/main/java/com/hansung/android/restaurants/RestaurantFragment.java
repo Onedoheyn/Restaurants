@@ -19,9 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-/**
- * Created by hhan0 on 2017-11-21.
- */
+//---------------------------메인 액티비티 프래그먼트------------------------------------------
 
 public class RestaurantFragment extends Fragment{
 
