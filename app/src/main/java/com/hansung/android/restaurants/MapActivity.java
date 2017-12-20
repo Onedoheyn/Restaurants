@@ -72,7 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             case R.id.gps:
                 getLastLocation();
-                GPSGPS();
+                getDistance4();
 
                 return true;
 
@@ -318,27 +318,66 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void GPSGPS(){
+    private void getDistance4() {
         mGoogleMap.setOnMarkerClickListener(this);
+        Location loc1 = new Location("location 1 name");
+
+        loc1.setLatitude(mCurrentLocation.getLatitude());
+        loc1.setLongitude(mCurrentLocation.getLongitude());
+        mGoogleMap.clear();
+
         Cursor cursor = DbHelper.getAllUsersBySQL();
-        cursor.moveToFirst();
 
-
-        while (cursor.moveToNext()) {
+        while (cursor.moveToNext()) { // 위도랑 경도 찾음
             double x = cursor.getDouble(5);
             double y = cursor.getDouble(6);
 
-            MarkerOptions makerOptions = new MarkerOptions();
-            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
-                    .position(new LatLng(x, y))
-                    .title("마커") // 타이틀.
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            Location location4 = new Location(" ");
+            location4.setLatitude(x);
+            location4.setLongitude(y);
+            distance = loc1.distanceTo(location4);
 
-            // 2. 마커 생성 (마커를 나타냄)
-            mGoogleMap.addMarker(makerOptions);
+            if(distance<99999999){
+                LatLng current_markLocate = new LatLng(loc1.getLatitude(), loc1.getLongitude());
+                mGoogleMap.addMarker( new MarkerOptions().
+                        position(current_markLocate).
+                        title(cursor.getString(2)));
+
+                LatLng markLocate = new LatLng(x, y);
+                mGoogleMap.addMarker(
+                        new MarkerOptions().
+                                position(markLocate).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).
+                                title(cursor.getString(2))
+                );
+            }
         }
+
     }
 
+//    private void GPSGPS(){
+//        mGoogleMap.setOnMarkerClickListener(this);
+//
+//
+//        Cursor cursor = DbHelper.getAllUsersBySQL();
+//        cursor.moveToFirst();
+//
+//
+//        while (cursor.moveToNext()) {
+//            double x = cursor.getDouble(5);
+//            double y = cursor.getDouble(6);
+//
+//            MarkerOptions makerOptions = new MarkerOptions();
+//            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+//                    .position(new LatLng(x, y))
+//                    .title("마커") // 타이틀.
+//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//
+//            // 2. 마커 생성 (마커를 나타냄)
+//            mGoogleMap.addMarker(makerOptions);
+//        }
+//    }
+//
 
 
 
