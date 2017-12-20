@@ -18,8 +18,11 @@ import android.widget.TextView;
  * Created by pc on 2017-11-19.
  */
 //안드로이드 강의 9주차의 SQLiteDBtest 코드 참조
+//-----------------------메인 액티비티에 나오는 리스트 클릭시 나오는 액티비티--------------------------
 public class ListActivity extends AppCompatActivity {
-    private DBHelper2 mDbHelper2;
+    //이전 코드
+    // private DBHelper2 mDbHelper2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +30,21 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
             finish();
             return;
         }
 
+        //-----------------------------------메뉴 프래그 먼트 접근------------------------------------
         MenuFragment details = new MenuFragment();
         details.setSelection(getIntent().getIntExtra("index", -1));
         getSupportFragmentManager().beginTransaction().replace(R.id.details, details).commit();
 
-        /*
 
+
+     //--------------------------------기존 리스트액티비티 코드--------------------------------
+        /*
         mDbHelper2 = new DBHelper2(this);
         //리스트뷰 온클릭 액티비티에 데이터베이스 불러옴
         Cursor cursor = mDbHelper2.getAllUsersBySQL();

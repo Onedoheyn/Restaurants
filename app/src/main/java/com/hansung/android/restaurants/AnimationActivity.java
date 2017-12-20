@@ -18,7 +18,7 @@ import android.animation.Animator;
  import android.view.animation.AnimationUtils;
  import android.widget.FrameLayout;
  import android.widget.ImageView;
-
+//--------------------------------앱 시작시 나오는 애니메이션----------------------------------
  public class AnimationActivity extends AppCompatActivity {
 
  final String TAG = "AnimationTest";
@@ -37,7 +37,7 @@ import android.animation.Animator;
  mFrame = (FrameLayout)findViewById(R.id.animation);
  mCountDown = (ImageView) findViewById(R.id.countdown);
  mFirework = (ImageView) findViewById(R.id.fire);
- //mRocket = (ImageView) findViewById(R.id.rocket);
+
 
 
  }
@@ -53,15 +53,6 @@ import android.animation.Animator;
 
  startCountDownFrameAnimation();
  startFireTweenAnimation();
-
- /**
-  * 아래 4가지 startRocket 애니메이션 중에 하나를 선택하여 테스트해 보세요.
- */
-    //    startRocketTweenAnimation();
-//      startRocketObjectPropertyAnimation();
-//      startRocketPropertyAnimationByXML();
-//      startRocketValuePropertyAnimation();
-
                 }
 
 private void startCountDownFrameAnimation() {

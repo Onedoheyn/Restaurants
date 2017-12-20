@@ -46,20 +46,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.content.Intent;
 
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+
+//---------------------------------맛집 등록 액티비티--------------------------------------------
+
+
 public class InsertActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private ImageView imgview;
     final static String TAG = "SQLITEDBTEST";
-
     final int REQUEST_CODE_READ_CONTACTS = 1;
 
 
@@ -71,22 +67,19 @@ public class InsertActivity extends AppCompatActivity {
     private DBHelper mDbHelper;
     private DBHelper3 mDbHelper3;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
 
         ImageButton buttonCamera = (ImageButton) findViewById(R.id.Camera);
-
-
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 dispatchTakePictureIntent();
             }
         });
+
 
 
         //---등록하기 버튼 누를 시 MainActivity로 넘어감---//
@@ -99,6 +92,7 @@ public class InsertActivity extends AppCompatActivity {
             }
         });
 
+
         mName = (EditText) findViewById(R.id.editText1);
         mAddress = (EditText) findViewById(R.id.editText2);
         mPhone = (EditText) findViewById(R.id.editText3);
@@ -106,20 +100,16 @@ public class InsertActivity extends AppCompatActivity {
         mDbHelper = new DBHelper(this);
         mDbHelper3 = new DBHelper3(this);
 
+
+
+
         viewAllToTextView2();
         viewAllToTextView3();
         viewAllToTextView4();
         viewAllToTextView5();
         //-----------권한 확인 -------- //
 
-        /*
-        if (ContextCompat.checkSelfPermission(InsertActivity.this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) { // 권한이 없으므로, 사용자에게 권한 요청 다이얼로그 표시
-            ActivityCompat.requestPermissions(InsertActivity.this,
-                    new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_READ_CONTACTS);
-        } else // 권한 있음! 해당 데이터나 장치에 접근!
-            getContacts();
-*/
+
 
     }
 
@@ -127,11 +117,13 @@ public class InsertActivity extends AppCompatActivity {
     File mPhotoFile;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+
     private String currentDateFormat() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
         String currentTimeStamp = dateFormat.format(new Date());
         return currentTimeStamp;
     }
+
 
     // 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
     private void dispatchTakePictureIntent() {
@@ -155,7 +147,7 @@ public class InsertActivity extends AppCompatActivity {
 
     }
 
-    //이미지버튼으로 카메라로 찍은사진 저장
+    //-------------------------이미지버튼으로 카메라로 찍은사진 저장--------------------------------
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (mPhotoFileName != null) {
@@ -171,8 +163,8 @@ public class InsertActivity extends AppCompatActivity {
     }
 
 
-//데이터 베이스 코드
-
+//--------------------------------데이터 베이스 코드------------------------------------
+//-------------위도와 경도도 저장이 되지만 화면에 출력하는모습은 보이지 않게 설정함--------------
 
     private void insertRecord() {
         EditText name = (EditText) findViewById(R.id.editText1);

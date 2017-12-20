@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-//===========================메뉴정보를 저장하는 데이터베이스==================================
 public class DBHelper3 extends SQLiteOpenHelper {
     final static String TAG="SQLiteDBTest";
 

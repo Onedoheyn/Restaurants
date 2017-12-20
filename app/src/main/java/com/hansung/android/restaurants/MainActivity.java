@@ -37,12 +37,11 @@ import java.util.Date;
  * Created by LeeChanHee on 2017-11-14.
  */
 
-public class MainActivity extends AppCompatActivity implements RestaurantFragment.OnTitleSelectedListener{
+public class MainActivity extends AppCompatActivity implements RestaurantFragment.OnTitleSelectedListener {
     private DBHelper mDbHelper;
     private DBHelper2 mDbHelper2;
     ImageView image;
     static SimpleCursorAdapter adapter;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantFragmen
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -97,7 +97,23 @@ public class MainActivity extends AppCompatActivity implements RestaurantFragmen
 
     }
 
+    @Override
+    public void onTitleSelected(int i) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //DetailsFragment detailsFragment = new DetailsFragment();
+            MenuFragment detailfragment = new MenuFragment();
+            detailfragment.setSelection(i);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment2, detailfragment).commit();
+        } else {
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("index", i);
+            startActivity(intent);
 
+        }
+    }
+
+}
+//-------------------------------------기존에 있던 코드---------------------------------------------
 //        mDbHelper = new DBHelper(this);
 //        viewAllToTextView1();
 //        mDbHelper2 = new DBHelper2(this);
@@ -146,21 +162,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantFragmen
 //        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 //    }
 
-    @Override
-    public void onTitleSelected(int i) {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //DetailsFragment detailsFragment = new DetailsFragment();
-            MenuFragment detailfragment = new MenuFragment();
-            detailfragment.setSelection(i);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment2, detailfragment).commit();
-        }
-        else {
-            Intent intent = new Intent(this, ListActivity.class);
-            intent.putExtra("index", i);
-            startActivity(intent);
 
-        }
-    }
 //
 //    private void viewAllToTextView1() {
 //        TextView result = (TextView) findViewById(R.id.text1);
@@ -180,16 +182,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantFragmen
 //        result.setText(buffer);
 //        buffer.setLength(0);
 //    }
-
-}
-
-
-
-
-
-
-
-
 
 //과제1에 사용한 코드
 

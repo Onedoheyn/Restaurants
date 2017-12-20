@@ -13,6 +13,7 @@ import android.widget.TextView;
  * Created by hhan0 on 2017-11-21.
  */
 
+// ----------------------------------메뉴 프래그먼트--------------------------------------------------
 public class MenuFragment extends android.support.v4.app.Fragment {
 
     public DBHelper2 mDBHelper2;
@@ -22,6 +23,8 @@ public class MenuFragment extends android.support.v4.app.Fragment {
 
     public MenuFragment(){
     }
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

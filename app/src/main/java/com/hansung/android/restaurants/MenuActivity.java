@@ -161,7 +161,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-//데이터 베이스 코드
+//---------------------------------데이터 베이스-------------------------------------------------
 
     private void getContacts2() {
         String [] projection = {
@@ -217,7 +217,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-
+//-------------------------------------메뉴 데이터베이스---------------------------------------------
     private void insertRecord2() {
         EditText name2 = (EditText)findViewById(R.id.editText4);
         EditText address2 = (EditText)findViewById(R.id.editText5);
