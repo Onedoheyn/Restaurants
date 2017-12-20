@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Locale;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
-
+//안드로이드 11주차 참조
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
     private DBHelper DbHelper;
@@ -206,7 +206,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
-
+    // 거리계산 참조 : http://croak.tistory.com/113
    private void getDistance1() { // 1km 이내
 
        Location loc1 = new Location("location 1 name");
@@ -246,7 +246,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                        }
     }
 
-
+    // 참조 : http://croak.tistory.com/113
     private void getDistance2() {
         Location loc1 = new Location("location 1 name");
         loc1.setLatitude(mCurrentLocation.getLatitude());
@@ -283,7 +283,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
-
+    // 참조 : http://croak.tistory.com/113
     private void getDistance3() {
 
         Location loc1 = new Location("location 1 name");
@@ -320,7 +320,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
-
+    // 참조 : http://croak.tistory.com/113
     private void getDistance4() { // GPS 버튼 누르면 등록된 맛집을 뜨게 하는 코드
 
         Location loc1 = new Location("location 1 name");

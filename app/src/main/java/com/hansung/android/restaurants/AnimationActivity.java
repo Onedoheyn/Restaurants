@@ -19,6 +19,7 @@ import android.animation.Animator;
  import android.widget.FrameLayout;
  import android.widget.ImageView;
 //--------------------------------앱 시작시 나오는 애니메이션----------------------------------
+// 안드로이드 강의 12주차 참조
  public class AnimationActivity extends AppCompatActivity {
 
  final String TAG = "AnimationTest";

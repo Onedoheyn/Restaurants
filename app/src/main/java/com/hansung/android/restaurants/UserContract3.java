@@ -4,7 +4,7 @@ package com.hansung.android.restaurants;
 
 import android.provider.BaseColumns;
 
-//==============================메뉴 정보가 저장되어지는 데이터베이스=======================================
+//==============================위도경도, 현위치 위도경도 저장=======================================
 public final class UserContract3 {
     public static final String DB_NAME3="user.db3";
     public static final int DATABASE_VERSION3 = 1;

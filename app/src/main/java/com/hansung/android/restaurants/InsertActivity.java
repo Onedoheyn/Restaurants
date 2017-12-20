@@ -102,12 +102,12 @@ public class InsertActivity extends AppCompatActivity {
 
 
 
-
+        // DB3의 내용 보여줌 (Edittext에)
         viewAllToTextView2();
         viewAllToTextView3();
         viewAllToTextView4();
         viewAllToTextView5();
-        //-----------권한 확인 -------- //
+
 
 
 
@@ -165,6 +165,8 @@ public class InsertActivity extends AppCompatActivity {
 
 //--------------------------------데이터 베이스 코드------------------------------------
 //-------------위도와 경도도 저장이 되지만 화면에 출력하는모습은 보이지 않게 설정함--------------
+    //                -> EditText에 안보이게 하는 조건을 주어서 안보이게 함 ,
+     //                 등록을 누르면 다같이  DB1에 저장이 됌 android:visibility="gone" 활용
 
     private void insertRecord() {
         EditText name = (EditText) findViewById(R.id.editText1);
@@ -187,7 +189,7 @@ public class InsertActivity extends AppCompatActivity {
         //오류나면 data-data-databases 에서 db삭제하고 다시해보기
 
     }
-
+    // 맛집 위도
     private void viewAllToTextView2() {
         EditText wo = (EditText) findViewById(R.id.editwo);
         Cursor cursor = mDbHelper3.getAllUsersBySQL();
@@ -198,7 +200,7 @@ public class InsertActivity extends AppCompatActivity {
         }
         wo.setText(buffer);
     }
-
+    // 맛집 경도
     private void viewAllToTextView3() {
         EditText go = (EditText) findViewById(R.id.editgo);
 
@@ -210,7 +212,7 @@ public class InsertActivity extends AppCompatActivity {
         }
         go.setText(buffer);
     }
-
+    // 현위치 위도
     private void viewAllToTextView4() {
         EditText wo2 = (EditText) findViewById(R.id.wo2);
 
@@ -222,7 +224,7 @@ public class InsertActivity extends AppCompatActivity {
         }
         wo2.setText(buffer);
     }
-
+    // 현위치 경도
     private void viewAllToTextView5() {
         EditText go2 = (EditText) findViewById(R.id.go2);
 

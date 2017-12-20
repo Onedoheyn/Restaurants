@@ -1,5 +1,6 @@
 package com.hansung.android.restaurants;
 //안드로이드 강의 9주차 sqllitedbtest 참조
+// 메뉴 등록하는 액티비티
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

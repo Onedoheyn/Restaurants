@@ -1,5 +1,5 @@
 package com.hansung.android.restaurants;
-
+//---위도경도 현위치 현경도 저장
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
